@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>盾牌衣橱 · 买衣服</title>
+    <title>潮流衣橱 · 买衣服</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         /* ===== 全局重置 & 变量 ===== */
@@ -358,21 +358,33 @@
         .product-image .badge.sale {
             background: #d45a5a;
         }
-        /* 图片加载失败时显示的后备图标 */
-        .product-image .fallback-emoji {
-            font-size: 72px;
-            line-height: 1;
+        /* 图片加载失败时的后备提示 */
+        .product-image .fallback-msg {
             display: none;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 12px 20px;
+            border-radius: 8px;
+            backdrop-filter: blur(2px);
         }
-        .product-image .fallback-emoji.show {
+        .product-image .fallback-msg i {
+            font-size: 32px;
             display: block;
+            margin-bottom: 6px;
+            color: #ccc;
         }
         .product-image img.hidden {
             display: none;
+        }
+        .product-image img.hidden + .fallback-msg {
+            display: block;
         }
 
         .product-info {
@@ -752,7 +764,7 @@
         <div class="container nav-inner">
             <div class="logo">
                 <i class="fas fa-tshirt"></i>
-                <span>盾牌</span>衣橱
+                <span>潮流</span>衣橱
             </div>
 
             <div class="nav-links">
@@ -851,7 +863,7 @@
     <footer class="footer">
         <div class="container footer-inner">
             <div class="footer-col">
-                <h4>盾牌衣橱</h4>
+                <h4>潮流衣橱</h4>
                 <p>让穿搭成为日常的仪式感。</p>
                 <p style="margin-top:6px;">📧 hello@fashion.com</p>
             </div>
@@ -874,13 +886,14 @@
             </div>
         </div>
         <div class="container footer-bottom">
-            &copy; 2026 盾牌衣橱 · 用心设计每一件衣服
+            &copy; 2026 潮流衣橱 · 用心设计每一件衣服
         </div>
     </footer>
 
     <script>
         // ============================================================
-        //  数据 (含真实服装图片)
+        //  数据 —— 每件商品均配有真实服装图片（来自免费图库）
+        //  若图片加载失败，会显示清晰的提示信息，您可替换为本地路径
         // ============================================================
         const products = [{
             id: 1,
@@ -892,7 +905,7 @@
             emoji: '👔',
             badge: '新品',
             badgeType: 'new',
-            image: 'https://images.unsplash.com/photo-1602810319428-019690571b5b?w=300&h=400&fit=crop&crop=center'
+            image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=300&h=400&fit=crop&crop=center'
         }, {
             id: 2,
             name: '真丝吊带裙',
@@ -903,7 +916,7 @@
             emoji: '👗',
             badge: '热卖',
             badgeType: 'sale',
-            image: 'https://images.unsplash.com/photo-1566174053879-31528523f4ae?w=300&h=400&fit=crop&crop=center'
+            image: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=300&h=400&fit=crop&crop=center'
         }, {
             id: 3,
             name: '棉麻休闲西装',
@@ -914,7 +927,7 @@
             emoji: '🧥',
             badge: null,
             badgeType: null,
-            image: 'https://images.unsplash.com/photo-1617137968427-85924c800ec2?w=300&h=400&fit=crop&crop=center'
+            image: 'https://images.unsplash.com/photo-1598808503746-f34c53b9322e?w=300&h=400&fit=crop&crop=center'
         }, {
             id: 4,
             name: '复古印花T恤',
@@ -936,7 +949,7 @@
             emoji: '👜',
             badge: null,
             badgeType: null,
-            image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=400&fit=crop&crop=center'
+            image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=300&h=400&fit=crop&crop=center'
         }, {
             id: 6,
             name: '珍珠金属项链',
@@ -1040,7 +1053,7 @@
         const sortSelect = document.getElementById('sortSelect');
 
         // ============================================================
-        //  渲染商品 (加入图片加载失败后备)
+        //  渲染商品 (图片加载失败显示友好提示)
         // ============================================================
         function renderProducts() {
             let list = [...products];
@@ -1095,14 +1108,17 @@
                 const badgeHtml = p.badge ?
                     `<span class="badge ${p.badgeType === 'sale' ? 'sale' : ''}">${p.badge}</span>` :
                     '';
-                // 图片加载失败时的后备脚本
-                const imgOnError = `this.onerror=null; this.classList.add('hidden'); this.parentNode.querySelector('.fallback-emoji').classList.add('show');`;
+                // 图片加载失败时显示提示
+                const imgOnError = `this.onerror=null; this.classList.add('hidden'); this.parentNode.querySelector('.fallback-msg').style.display='block';`;
                 return `
                     <div class="product-card" data-id="${p.id}">
                         <div class="product-image">
                             ${badgeHtml}
                             <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="${imgOnError}" />
-                            <span class="fallback-emoji">${p.emoji}</span>
+                            <div class="fallback-msg" style="display:none;">
+                                <i class="fas fa-image"></i>
+                                图片加载失败<br><span style="font-size:12px;color:#bbb;">请检查网络或替换图片链接</span>
+                            </div>
                         </div>
                         <div class="product-info">
                             <div class="product-name">${p.name}</div>
@@ -1322,7 +1338,8 @@
         updateCartUI();
         document.querySelector('.filter-btn[data-price="all"]')?.classList.add('active');
 
-        console.log('👕 盾牌衣橱已加载 — 图片加载失败会自动显示图标后备');
+        console.log('👕 潮流衣橱已加载 — 所有商品均已附上实体服装图片！');
+        console.log('💡 如果图片未显示，请检查网络或替换 image 字段为本地路径。');
     </script>
 
 </body>
