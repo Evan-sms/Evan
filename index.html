@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>盾牌衣橱 · 买衣服</title>
-    <!-- Font Awesome 图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         /* ===== 全局重置 & 变量 ===== */
@@ -358,6 +357,22 @@
         }
         .product-image .badge.sale {
             background: #d45a5a;
+        }
+        /* 图片加载失败时显示的后备图标 */
+        .product-image .fallback-emoji {
+            font-size: 72px;
+            line-height: 1;
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .product-image .fallback-emoji.show {
+            display: block;
+        }
+        .product-image img.hidden {
+            display: none;
         }
 
         .product-info {
@@ -718,7 +733,6 @@
             }
         }
 
-        /* 小工具：隐藏滚动条但可滚动 */
         .cart-items::-webkit-scrollbar {
             width: 4px;
         }
@@ -1026,23 +1040,20 @@
         const sortSelect = document.getElementById('sortSelect');
 
         // ============================================================
-        //  渲染商品
+        //  渲染商品 (加入图片加载失败后备)
         // ============================================================
         function renderProducts() {
             let list = [...products];
 
-            // 搜索
             if (searchQuery.trim()) {
                 const q = searchQuery.trim().toLowerCase();
                 list = list.filter(p => p.name.toLowerCase().includes(q));
             }
 
-            // 类别筛选
             if (currentFilter !== 'all') {
                 list = list.filter(p => p.category === currentFilter);
             }
 
-            // 价格筛选
             if (currentPriceFilter !== 'all') {
                 const [min, max] = currentPriceFilter.split('-').map(Number);
                 if (currentPriceFilter === '801+') {
@@ -1052,7 +1063,6 @@
                 }
             }
 
-            // 排序
             switch (currentSort) {
                 case 'price-asc':
                     list.sort((a, b) => a.price - b.price);
@@ -1085,11 +1095,14 @@
                 const badgeHtml = p.badge ?
                     `<span class="badge ${p.badgeType === 'sale' ? 'sale' : ''}">${p.badge}</span>` :
                     '';
+                // 图片加载失败时的后备脚本
+                const imgOnError = `this.onerror=null; this.classList.add('hidden'); this.parentNode.querySelector('.fallback-emoji').classList.add('show');`;
                 return `
                     <div class="product-card" data-id="${p.id}">
                         <div class="product-image">
                             ${badgeHtml}
-                            <img src="${p.image}" alt="${p.name}" loading="lazy" />
+                            <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="${imgOnError}" />
+                            <span class="fallback-emoji">${p.emoji}</span>
                         </div>
                         <div class="product-info">
                             <div class="product-name">${p.name}</div>
@@ -1156,7 +1169,6 @@
                 `;
             }).join('');
 
-            // 绑定购物车内按钮事件
             document.querySelectorAll('.qty-incr').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const id = Number(btn.dataset.id);
@@ -1275,14 +1287,13 @@
             if (btn) {
                 const id = Number(btn.dataset.id);
                 addToCart(id);
-                // 微反馈
                 btn.style.transform = 'scale(0.85)';
                 setTimeout(() => btn.style.transform = '', 200);
             }
         });
 
         // ============================================================
-        //  英雄区按钮 → 滚动到商品区
+        //  英雄区按钮
         // ============================================================
         document.getElementById('heroShopBtn').addEventListener('click', () => {
             document.querySelector('.product-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1309,11 +1320,10 @@
         // ============================================================
         renderProducts();
         updateCartUI();
-
-        // 默认激活价格“全部”
         document.querySelector('.filter-btn[data-price="all"]')?.classList.add('active');
 
-        console.log('👕 潮流衣橱已加载 — 所有商品均已附上实体图！');
+        console.log('👕 盾牌衣橱已加载 — 图片加载失败会自动显示图标后备');
     </script>
+
 </body>
 </html>
