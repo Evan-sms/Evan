@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>盾牌</title>
+    <title>盾牌衣橱 · 买衣服</title>
     <!-- Font Awesome 图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
@@ -331,10 +331,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 72px;
-            color: #b5a99a;
             position: relative;
             overflow: hidden;
+        }
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .product-card:hover .product-image img {
+            transform: scale(1.03);
         }
         .product-image .badge {
             position: absolute;
@@ -347,6 +354,7 @@
             padding: 4px 14px;
             border-radius: 40px;
             letter-spacing: 0.3px;
+            z-index: 2;
         }
         .product-image .badge.sale {
             background: #d45a5a;
@@ -686,7 +694,6 @@
             }
             .product-image {
                 height: 200px;
-                font-size: 48px;
             }
             .product-info {
                 padding: 14px 16px 16px;
@@ -830,7 +837,7 @@
     <footer class="footer">
         <div class="container footer-inner">
             <div class="footer-col">
-                <h4>盾牌</h4>
+                <h4>盾牌衣橱</h4>
                 <p>让穿搭成为日常的仪式感。</p>
                 <p style="margin-top:6px;">📧 hello@fashion.com</p>
             </div>
@@ -853,13 +860,13 @@
             </div>
         </div>
         <div class="container footer-bottom">
-            &copy; 2026 盾牌 · 用心设计每一件衣服
+            &copy; 2026 盾牌衣橱 · 用心设计每一件衣服
         </div>
     </footer>
 
     <script>
         // ============================================================
-        //  数据
+        //  数据 (含真实服装图片)
         // ============================================================
         const products = [{
             id: 1,
@@ -871,6 +878,7 @@
             emoji: '👔',
             badge: '新品',
             badgeType: 'new',
+            image: 'https://images.unsplash.com/photo-1602810319428-019690571b5b?w=300&h=400&fit=crop&crop=center'
         }, {
             id: 2,
             name: '真丝吊带裙',
@@ -881,6 +889,7 @@
             emoji: '👗',
             badge: '热卖',
             badgeType: 'sale',
+            image: 'https://images.unsplash.com/photo-1566174053879-31528523f4ae?w=300&h=400&fit=crop&crop=center'
         }, {
             id: 3,
             name: '棉麻休闲西装',
@@ -891,6 +900,7 @@
             emoji: '🧥',
             badge: null,
             badgeType: null,
+            image: 'https://images.unsplash.com/photo-1617137968427-85924c800ec2?w=300&h=400&fit=crop&crop=center'
         }, {
             id: 4,
             name: '复古印花T恤',
@@ -901,6 +911,7 @@
             emoji: '👕',
             badge: '限时折扣',
             badgeType: 'sale',
+            image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=300&h=400&fit=crop&crop=center'
         }, {
             id: 5,
             name: '草编托特包',
@@ -911,6 +922,7 @@
             emoji: '👜',
             badge: null,
             badgeType: null,
+            image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=400&fit=crop&crop=center'
         }, {
             id: 6,
             name: '珍珠金属项链',
@@ -921,6 +933,7 @@
             emoji: '📿',
             badge: '人气',
             badgeType: 'new',
+            image: 'https://images.unsplash.com/photo-1602751584552-8ba73aad9253?w=300&h=400&fit=crop&crop=center'
         }, {
             id: 7,
             name: '高腰阔腿裤',
@@ -931,6 +944,7 @@
             emoji: '👖',
             badge: null,
             badgeType: null,
+            image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=300&h=400&fit=crop&crop=center'
         }, {
             id: 8,
             name: '帆布板鞋',
@@ -941,6 +955,7 @@
             emoji: '👟',
             badge: '经典',
             badgeType: 'new',
+            image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=400&fit=crop&crop=center'
         }, {
             id: 9,
             name: '针织开衫',
@@ -951,6 +966,7 @@
             emoji: '🧶',
             badge: '秋季新款',
             badgeType: 'new',
+            image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=300&h=400&fit=crop&crop=center'
         }, {
             id: 10,
             name: '皮质双肩包',
@@ -961,6 +977,7 @@
             emoji: '🎒',
             badge: '限量',
             badgeType: 'sale',
+            image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=400&fit=crop&crop=center'
         }, {
             id: 11,
             name: '运动束脚裤',
@@ -971,6 +988,7 @@
             emoji: '🩳',
             badge: null,
             badgeType: null,
+            image: 'https://images.unsplash.com/photo-1556906781-9a412c14af79?w=300&h=400&fit=crop&crop=center'
         }, {
             id: 12,
             name: '丝巾发带',
@@ -981,6 +999,7 @@
             emoji: '🧣',
             badge: '上新',
             badgeType: 'new',
+            image: 'https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=300&h=400&fit=crop&crop=center'
         }, ];
 
         // ============================================================
@@ -1070,7 +1089,7 @@
                     <div class="product-card" data-id="${p.id}">
                         <div class="product-image">
                             ${badgeHtml}
-                            <span style="font-size:72px; line-height:1;">${p.emoji}</span>
+                            <img src="${p.image}" alt="${p.name}" loading="lazy" />
                         </div>
                         <div class="product-info">
                             <div class="product-name">${p.name}</div>
@@ -1294,8 +1313,7 @@
         // 默认激活价格“全部”
         document.querySelector('.filter-btn[data-price="all"]')?.classList.add('active');
 
-        console.log('👕 潮流衣橱已加载 — 祝你购物愉快！');
+        console.log('👕 潮流衣橱已加载 — 所有商品均已附上实体图！');
     </script>
-
 </body>
 </html>
