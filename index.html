@@ -3,338 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>盾牌衣橱 CHCSG - 电竞数码商城</title>
+    <title>驰创数谷 CHCSG - 一站式电竞数码商城</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- 全局设计变量 --- */
+        /* --- 全局重置与变量 --- */
         :root {
-            --primary: #000000;
-            --bg-color: #f4f5f7;
-            --card-bg: #ffffff;
-            --text-main: #333;
-            --text-light: #888;
-            --accent: #3b82f6; /* 科技蓝 */
-            --border: #e5e7eb;
+            --primary-black: #0f0f0f;
+            --accent-blue: #4f46e5;
+            --bg-light: #f7f8fa;
+            --text-dark: #1a1a1a;
+            --text-gray: #666;
+            --border-color: #e5e7eb;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 0; }
+        body { background-color: var(--bg-light); color: var(--text-dark); }
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
-        
-        /* --- 顶部导航栏 --- */
-        header {
-            background: var(--primary);
-            color: white;
-            padding: 15px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .logo { font-size: 22px; font-weight: 800; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; color: #fff; }
-        .logo span { color: var(--accent); }
-        .search-box { display: flex; flex: 1; max-width: 500px; margin: 0 30px; }
-        .search-box input { flex: 1; padding: 10px 15px; border: none; border-radius: 4px 0 0 4px; outline: none; }
-        .search-box button { padding: 0 20px; background: var(--accent); color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; font-weight: bold; }
-        .nav-links { display: flex; gap: 25px; font-size: 14px; align-items: center; font-weight: 500; }
-        .nav-links a:hover { color: var(--accent); transition: 0.3s; cursor: pointer; }
-        .cart-btn { position: relative; background: transparent; color: white; border: none; font-size: 18px; cursor: pointer; }
-        .cart-count { position: absolute; top: -8px; right: -8px; background: #d32f2f; color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; display: flex; justify-content: center; align-items: center; }
-        
-        /* --- 语言切换按钮 --- */
-        .lang-switch { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 13px; transition: 0.3s; font-weight: 600; }
-        .lang-switch:hover { background: rgba(255,255,255,0.2); }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
 
-        /* --- 主体布局：左分类，右商品 --- */
-        .main-container { display: flex; max-width: 1400px; margin: 30px auto; padding: 0 20px; gap: 20px; }
-        
-        /* 左侧分类栏 */
-        .sidebar { width: 260px; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); height: fit-content; position: sticky; top: 80px; }
-        .sidebar-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
-        .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f9f9f9; cursor: pointer; font-size: 14px; color: #444; transition: 0.2s; }
-        .sidebar-item:hover, .sidebar-item.active { color: var(--accent); font-weight: 600; }
-        .sidebar-item i { width: 20px; text-align: center; color: #666; }
-        .sidebar-item:hover i { color: var(--accent); }
+        /* --- 1. 顶部黑色主导航 --- */
+        .top-nav { background: var(--primary-black); color: white; padding: 14px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+        .logo span { color: var(--accent-blue); }
+        .search-wrap { flex: 1; max-width: 500px; margin: 0 30px; display: flex; }
+        .search-wrap input { flex: 1; padding: 10px 16px; border: none; border-radius: 4px 0 0 4px; outline: none; font-size: 14px; }
+        .search-wrap button { padding: 0 24px; background: var(--accent-blue); color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; font-weight: 600; }
+        .nav-links { display: flex; gap: 25px; font-size: 14px; font-weight: 500; align-items: center; }
+        .nav-links a { transition: 0.3s; cursor: pointer; }
+        .nav-links a:hover { color: var(--accent-blue); }
+        .cart-btn { position: relative; display: flex; align-items: center; gap: 6px; background: transparent; color: white; border: none; font-size: 14px; font-weight: 600; cursor: pointer; }
+        .cart-count { background: #ef4444; color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; display: flex; justify-content: center; align-items: center; position: absolute; top: -6px; right: -10px; }
 
-        /* 右侧内容区 */
-        .content-area { flex: 1; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .section-title { font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
-        .section-title i { color: #f59e0b; }
+        /* --- 2. 二级分类导航 (黑底) --- */
+        .sub-nav { background: #222222; padding: 12px 40px; display: flex; gap: 30px; font-size: 13px; color: #ccc; border-top: 1px solid #333; }
+        .sub-nav a { transition: 0.3s; cursor: pointer; }
+        .sub-nav a:hover { color: white; }
+        .sub-nav a.active { color: white; font-weight: 600; }
 
-        /* 商品网格 */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
-        .product-card { background: white; border-radius: 12px; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
-        .product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
-        .img-wrap { position: relative; height: 200px; background: #f0f0f0; overflow: hidden; }
-        .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .product-card:hover .img-wrap img { transform: scale(1.05); }
-        .tag { position: absolute; top: 10px; left: 10px; background: var(--accent); color: white; font-size: 12px; padding: 3px 10px; border-radius: 4px; font-weight: 600; }
-        .tag.hot { background: #ef4444; }
+        /* --- 3. 巨幅 Banner --- */
+        .hero-banner { margin: 20px auto; border-radius: 16px; overflow: hidden; display: flex; height: 380px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); background: #0f111a; }
+        .hero-left { flex: 1.2; padding: 60px 40px; display: flex; flex-direction: column; justify-content: center; color: white; background: linear-gradient(135deg, #0f111a 0%, #1c1e2e 100%); }
+        .hero-left h1 { font-size: 42px; font-weight: 300; margin-bottom: 20px; letter-spacing: 2px; }
+        .hero-left h1 strong { font-weight: 700; }
+        .hero-left p { font-size: 15px; color: #9ca3af; line-height: 1.6; margin-bottom: 30px; max-width: 80%; }
+        .hero-btn { display: inline-block; background: var(--accent-blue); color: white; padding: 12px 36px; border-radius: 6px; font-weight: 600; font-size: 14px; transition: 0.3s; width: fit-content; cursor: pointer; }
+        .hero-btn:hover { background: #4338ca; transform: translateY(-2px); }
+        .hero-right { flex: 1; background: #161822; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .hero-right img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
 
+        /* --- 4. 服务保障卡片 --- */
+        .service-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 30px; }
+        .service-card { background: white; padding: 25px; border-radius: 12px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.02); border: 1px solid var(--border-color); transition: 0.3s; }
+        .service-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
+        .service-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+        .service-card p { font-size: 12px; color: var(--text-gray); }
+
+        /* --- 5. 客户真实评价 --- */
+        .reviews-section { margin-top: 50px; }
+        .section-title { display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 700; margin-bottom: 24px; }
+        .section-title::before { content: ''; display: block; width: 4px; height: 24px; background: var(--accent-blue); border-radius: 4px; }
+        .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .review-card { background: white; padding: 24px; border-radius: 12px; border: 1px solid var(--border-color); }
+        .review-card .stars { color: #fbbf24; font-size: 14px; margin-bottom: 10px; letter-spacing: 2px; }
+        .review-card .stars span { color: #333; font-weight: 600; margin-left: 6px; }
+        .review-card .content { font-size: 14px; line-height: 1.6; color: #333; margin-bottom: 15px; height: 60px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+        .review-card .user { font-size: 13px; color: var(--text-gray); }
+
+        /* --- 6. 商品列表区域 --- */
+        .products-section { margin-top: 50px; padding-bottom: 60px; }
+        .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .product-card { background: white; border-radius: 12px; overflow: hidden; transition: 0.3s; border: 1px solid var(--border-color); }
+        .product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.06); }
+        .img-wrap { position: relative; height: 200px; background: #f0f0f0; }
+        .img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+        .tag { position: absolute; top: 10px; left: 10px; background: #ef4444; color: white; font-size: 12px; padding: 2px 10px; border-radius: 4px; }
         .prod-info { padding: 16px; }
-        .prod-name { font-size: 15px; font-weight: 600; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 42px; margin-bottom: 6px; }
-        .prod-meta { font-size: 12px; color: #999; display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
-        .prod-price { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
-        .price-current { font-size: 20px; font-weight: 800; color: #d32f2f; }
-        .price-old { font-size: 14px; text-decoration: line-through; color: #aaa; }
-        .add-btn { width: 100%; padding: 10px; background: var(--primary); color: white; border: none; border-radius: 30px; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.3s; }
+        .prod-name { font-size: 14px; font-weight: 600; height: 40px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; margin-bottom: 6px; }
+        .prod-price { font-size: 20px; font-weight: 700; color: #d32f2f; margin-bottom: 12px; }
+        .prod-price del { font-size: 14px; color: #aaa; font-weight: 400; margin-left: 8px; }
+        .add-btn { width: 100%; padding: 10px; background: var(--primary-black); color: white; border: none; border-radius: 30px; cursor: pointer; transition: 0.3s; font-weight: 600; }
         .add-btn:hover { background: #333; }
 
-        /* --- 底部 Footer --- */
-        footer { background: #111; color: #ccc; padding: 60px 40px 20px; margin-top: 60px; }
-        .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; border-bottom: 1px solid #333; padding-bottom: 40px; }
-        .f-col h4 { color: #fff; margin-bottom: 20px; font-size: 16px; }
-        .f-col ul li { margin-bottom: 12px; font-size: 14px; cursor: pointer; transition: 0.2s; }
-        .f-col ul li:hover { color: var(--accent); }
-        .f-col ul li i { width: 20px; color: var(--accent); margin-right: 8px; }
-        
-        .footer-contact { max-width: 1400px; margin: 30px auto 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-        .footer-contact p { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #aaa; }
-        .footer-contact a { color: var(--accent); font-weight: bold; }
-        .footer-copy { text-align: center; margin-top: 30px; font-size: 12px; color: #666; }
+        /* --- 7. 底部 --- */
+        footer { background: #0f111a; color: #9ca3af; padding: 60px 0 20px; margin-top: 40px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding-bottom: 40px; border-bottom: 1px solid #1f2937; }
+        .f-col h4 { color: white; margin-bottom: 20px; font-size: 15px; }
+        .f-col ul li { margin-bottom: 12px; font-size: 14px; transition: 0.3s; cursor: pointer; }
+        .f-col ul li:hover { color: white; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; font-size: 13px; flex-wrap: wrap; gap: 20px; }
 
-        /* --- 响应式 --- */
+        @media (max-width: 1024px) {
+            .service-grid { grid-template-columns: repeat(2, 1fr); }
+            .reviews-grid { grid-template-columns: 1fr 1fr; }
+            .product-grid { grid-template-columns: repeat(3, 1fr); }
+        }
         @media (max-width: 768px) {
-            header { padding: 10px 20px; flex-direction: column; gap: 10px; }
-            .search-box { margin: 10px 0; width: 100%; max-width: 100%; }
-            .main-container { flex-direction: column; }
-            .sidebar { width: 100%; position: static; display: flex; flex-wrap: wrap; gap: 10px; padding: 15px; }
-            .sidebar-title { width: 100%; margin-bottom: 10px; border-bottom: none; padding-bottom: 0; }
-            .sidebar-item { border-bottom: none; padding: 8px 12px; border: 1px solid #eee; border-radius: 20px; flex: 1 0 40%; }
-            .footer-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+            .top-nav { flex-direction: column; gap: 10px; padding: 10px 20px; }
+            .search-wrap { width: 100%; margin: 5px 0; max-width: 100%; }
+            .sub-nav { overflow-x: auto; white-space: nowrap; padding: 10px 20px; gap: 15px; }
+            .hero-banner { flex-direction: column; height: auto; border-radius: 0; }
+            .hero-left { padding: 30px 20px; }
+            .hero-left p { max-width: 100%; }
+            .hero-right { height: 200px; }
+            .service-grid, .reviews-grid, .product-grid { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
         }
     </style>
 </head>
 <body>
 
     <!-- 顶部导航 -->
-    <header>
-        <div class="logo"><i class="fas fa-shield-halved"></i> 盾牌衣橱 <span>CHCSG</span></div>
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="搜索游戏手柄、显卡、主机、电竞外设...">
-            <button onclick="searchProducts()">搜索</button>
+    <div class="top-nav">
+        <div class="logo">驰创数谷 <span>CHCSG</span></div>
+        <div class="search-wrap">
+            <input type="text" placeholder="搜索游戏手柄、显卡、主机、电竞外设、机械键盘...">
+            <button>搜索</button>
         </div>
         <div class="nav-links">
-            <a data-key="nav_home">首页</a>
-            <a data-key="nav_all">全站数码电竞</a>
-            <a data-key="nav_new">新品首发</a>
-            <a data-key="nav_sale">限时折扣</a>
-            <div class="lang-switch" onclick="toggleLanguage()">
-                <i class="fas fa-language"></i> <span id="langLabel">🇨🇳 中文</span>
-            </div>
-            <button class="cart-btn" onclick="toggleCart()">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-count" id="cartCount">0</span>
+            <a>首页</a>
+            <a>全部数码电竞</a>
+            <a>新品首发</a>
+            <a>限时折扣</a>
+            <a>品牌专区</a>
+            <button class="cart-btn" onclick="alert('请先下单体验')">
+                <i class="fas fa-shopping-cart"></i> 购物车 <span class="cart-count">0</span>
             </button>
         </div>
-    </header>
+    </div>
 
-    <!-- 主体：左边栏 + 右边商品 -->
-    <div class="main-container">
-        <!-- 左侧分类 -->
-        <div class="sidebar">
-            <div class="sidebar-title" data-key="category_title">商品分类</div>
-            <div class="sidebar-item active" onclick="filterCategory('all', this)"><i class="fas fa-th-large"></i> <span data-key="cat_all">全部热销商品</span></div>
-            <div class="sidebar-item" onclick="filterCategory('Console', this)"><i class="fab fa-playstation"></i> <span data-key="cat_console">PS5/Xbox/Switch主机</span></div>
-            <div class="sidebar-item" onclick="filterCategory('GPU', this)"><i class="fas fa-microchip"></i> <span data-key="cat_gpu">显卡CPU主板电脑</span></div>
-            <div class="sidebar-item" onclick="filterCategory('Keyboard', this)"><i class="fas fa-keyboard"></i> <span data-key="cat_keyboard">机械键盘游戏鼠标</span></div>
-            <div class="sidebar-item" onclick="filterCategory('Audio', this)"><i class="fas fa-headphones"></i> <span data-key="cat_audio">电竞降噪耳机音响</span></div>
-            <div class="sidebar-item" onclick="filterCategory('Chair', this)"><i class="fas fa-chair"></i> <span data-key="cat_chair">电竞椅电脑桌支架</span></div>
-        </div>
+    <!-- 二级分类 -->
+    <div class="sub-nav">
+        <a class="active">全部分类</a>
+        <a onclick="filterProducts('all')">游戏主机掌机</a>
+        <a onclick="filterProducts('GPU')">电脑硬件显卡CPU</a>
+        <a onclick="filterProducts('Keyboard')">机械键盘鼠标外设</a>
+        <a onclick="filterProducts('Audio')">电竞耳机音响</a>
+        <a onclick="filterProducts('Chair')">电竞桌椅房设备</a>
+        <a>网易典藏游戏</a>
+    </div>
 
-        <!-- 右侧商品区 -->
-        <div class="content-area">
-            <div class="section-header">
-                <div class="section-title"><i class="fas fa-fire"></i> <span data-key="hot_title">本周热销榜单</span></div>
+    <!-- Banner -->
+    <div class="container">
+        <div class="hero-banner">
+            <div class="hero-left">
+                <h1>一站式<strong>电竞数码商城</strong></h1>
+                <p>主机、显卡、外设全品类现货直发，正品国行保障，全国顺丰速发，365天售后质保，专业电竞装备一站式选购</p>
+                <div class="hero-btn">立即选购</div>
             </div>
-            
-            <!-- 商品卡片网格 -->
-            <div class="product-grid" id="productGrid">
-                <!-- JS动态生成 -->
+            <div class="hero-right">
+                <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?q=80&w=1000&auto=format&fit=crop" alt="Gaming Console">
             </div>
         </div>
     </div>
 
-    <!-- 底部Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div class="f-col">
-                <h4 data-key="f_guide_title">购物指南</h4>
-                <ul>
-                    <li data-key="f_guide_1">下单流程说明</li>
-                    <li data-key="f_guide_2">支付方式介绍</li>
-                    <li data-key="f_guide_3">全国物流配送</li>
-                    <li data-key="f_guide_4">售后质保退换</li>
-                </ul>
+    <!-- 服务保障 -->
+    <div class="container">
+        <div class="service-grid">
+            <div class="service-card">
+                <h4>正品保障</h4>
+                <p>官方授权货源，支持查验</p>
             </div>
-            <div class="f-col">
-                <h4 data-key="f_service_title">客户服务</h4>
-                <ul>
-                    <li data-key="f_service_1">国行正品保障</li>
-                    <li data-key="f_service_2">硬件故障维修</li>
-                    <li data-key="f_service_3">正规发票开具</li>
-                    <li data-key="f_service_4">在线客服咨询</li>
-                </ul>
+            <div class="service-card">
+                <h4>极速发货</h4>
+                <p>当日下单24小时内发出</p>
             </div>
-            <div class="f-col">
-                <h4 data-key="f_brand_title">品牌合作</h4>
-                <ul>
-                    <li data-key="f_brand_1">数码品牌入驻</li>
-                    <li data-key="f_brand_2">企业批量采购</li>
-                    <li data-key="f_brand_3">电竞礼品定制</li>
-                    <li data-key="f_brand_4">线下门店渠道</li>
-                </ul>
+            <div class="service-card">
+                <h4>超长质保</h4>
+                <p>全品类1-3年官方保修</p>
             </div>
-            <div class="f-col">
-                <h4 data-key="f_about_title">关于盾牌衣橱</h4>
-                <ul>
-                    <li data-key="f_about_1">平台品牌介绍</li>
-                    <li data-key="f_about_2">数码供应链渠道</li>
-                    <li data-key="f_about_3">媒体品牌报道</li>
-                    <li data-key="f_about_4">隐私使用政策</li>
-                </ul>
+            <div class="service-card">
+                <h4>在线客服</h4>
+                <p>全天候在线咨询</p>
             </div>
         </div>
+    </div>
 
-        <div class="footer-contact">
-            <p><span data-key="f_telegram_label">24小时在线客服 Telegram:</span> <a href="https://t.me/+6588521816">+65 88521816</a> <span style="color:#666;font-size:12px;margin-left:10px;" data-key="f_work_time">客服工作时间：全天在线，秒回复咨询</span></p>
-            <p style="font-size:13px; color:#888;">
-                <a href="#" data-key="f_link_1">隐私政策</a> | <a href="#" data-key="f_link_2">服务条款</a> | <a href="#" data-key="f_link_3">退换货规则</a>
-            </p>
+    <!-- 客户真实评价 -->
+    <div class="container reviews-section">
+        <div class="section-title">客户真实评价</div>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="stars">★★★★★ <span>5.0</span></div>
+                <div class="content">PS5主机全新未拆封，发货速度超快，客服全程耐心解答，配件齐全，性价比很高！</div>
+                <div class="user">游戏玩家阿泽</div>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★ <span>4.9</span></div>
+                <div class="content">4070Ti显卡全新国行，包装完好，上机一次点亮，3年质保很放心。</div>
+                <div class="user">装机大神小宇</div>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★ <span>4.8</span></div>
+                <div class="content">机械键盘手感超棒，RGB灯光效果好看，物流第二天就送到，推荐入手！</div>
+                <div class="user">桌搭爱好者七七</div>
+            </div>
         </div>
-        <div class="footer-copy">© 2026 CHCSG盾牌衣橱 电竞数码商城 版权所有 | 官方运营平台</div>
+    </div>
+
+    <!-- 商品列表展示 -->
+    <div class="container products-section">
+        <div class="section-title">本周热销榜单</div>
+        <div class="product-grid" id="productGrid">
+            <!-- 商品通过 JS 生成 -->
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="f-col">
+                    <h4>购物指南</h4>
+                    <ul><li>下单流程说明</li><li>支付方式介绍</li><li>全国物流配送</li><li>售后质保退换</li></ul>
+                </div>
+                <div class="f-col">
+                    <h4>客户服务</h4>
+                    <ul><li>国行正品保障</li><li>硬件故障维修</li><li>正规发票开具</li><li>在线客服咨询</li></ul>
+                </div>
+                <div class="f-col">
+                    <h4>品牌合作</h4>
+                    <ul><li>数码品牌入驻</li><li>企业批量采购</li><li>电竞礼品定制</li><li>线下门店渠道</li></ul>
+                </div>
+                <div class="f-col">
+                    <h4>关于驰创数谷</h4>
+                    <ul><li>平台品牌介绍</li><li>数码供应链渠道</li><li>媒体品牌报道</li><li>隐私使用政策</li></ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>24小时在线客服 Telegram：<strong style="color:#4f46e5;">+65 88521816</strong></p>
+                <p>© 2026 CHCSG驰创数谷 版权所有</p>
+            </div>
+        </div>
     </footer>
 
-    <!-- 核心功能 JS -->
+    <!-- JavaScript 核心逻辑 -->
     <script>
-        // 1. 数据准备：3C数码商品 (图片均使用稳定图床)
         const products = [
-            { id: 1, name: "PS5 光驱版游戏主机", cat: "Console", price: 3280, old_price: 3999, img: "https://picsum.photos/400/300?random=1", tag: "限时7折" },
-            { id: 2, name: "RTX 4070Ti Super 显卡", cat: "GPU", price: 6890, old_price: 7999, img: "https://picsum.photos/400/300?random=2", tag: "热销爆款" },
-            { id: 3, name: "机械键盘RGB背光游戏键盘", cat: "Keyboard", price: 459, old_price: 699, img: "https://picsum.photos/400/300?random=3", tag: "新品首发" },
-            { id: 4, name: "7.1声道电竞头戴游戏耳机", cat: "Audio", price: 869, old_price: 1099, img: "https://picsum.photos/400/300?random=4", tag: "限时好物" },
-            { id: 5, name: "人体工学可升降电竞椅", cat: "Chair", price: 2560, old_price: 3099, img: "https://picsum.photos/400/300?random=5", tag: "掌柜推荐" },
-            { id: 6, name: "轻量化无线游戏鼠标", cat: "Keyboard", price: 699, old_price: 899, img: "https://picsum.photos/400/300?random=6", tag: "限时折扣" },
-            { id: 7, name: "Xbox Series X 主机", cat: "Console", price: 3850, old_price: 4299, img: "https://picsum.photos/400/300?random=7", tag: "热销爆款" },
-            { id: 8, name: "Intel i9 14900K 处理器", cat: "GPU", price: 3799, old_price: 4199, img: "https://picsum.photos/400/300?random=8", tag: "新品首发" },
-            { id: 9, name: "台式机显示器27寸4K", cat: "Chair", price: 1899, old_price: 2299, img: "https://picsum.photos/400/300?random=9", tag: "限时好物" },
-            { id: 10, name: "Nintendo Switch OLED", cat: "Console", price: 1850, old_price: 2099, img: "https://picsum.photos/400/300?random=10", tag: "掌柜推荐" },
-            { id: 11, name: "电竞桌 RGB 发光桌板", cat: "Chair", price: 890, old_price: 1099, img: "https://picsum.photos/400/300?random=11", tag: "限时折扣" },
-            { id: 12, name: "降噪入耳式电竞耳机", cat: "Audio", price: 329, old_price: 459, img: "https://picsum.photos/400/300?random=12", tag: "热销爆款" }
+            { id: 1, name: "PS5 光驱版游戏主机 国行全新原装", cat: "all", price: 3280, old: 3999, img: "https://images.unsplash.com/photo-1606318801954-d46d46d3360a?w=400&h=300&fit=crop", tag: "限时7折" },
+            { id: 2, name: "RTX 4070Ti Super 16G电竞独立显卡", cat: "GPU", price: 6890, old: 7999, img: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=400&h=300&fit=crop", tag: "热销爆款" },
+            { id: 3, name: "樱桃机械键盘RGB背光游戏有线", cat: "Keyboard", price: 459, old: 699, img: "https://images.unsplash.com/photo-1618386423279-eef9c78c1b82?w=400&h=300&fit=crop", tag: "新品首发" },
+            { id: 4, name: "7.1声道电竞降噪头戴游戏耳机", cat: "Audio", price: 869, old: 1099, img: "https://images.unsplash.com/photo-1612444530582-fc66183b16f7?w=400&h=300&fit=crop", tag: "限时好物" },
+            { id: 5, name: "人体工学可升降电竞椅电脑桌", cat: "Chair", price: 2560, old: 3099, img: "https://images.unsplash.com/photo-1598555647570-78d7450e4a96?w=400&h=300&fit=crop", tag: "掌柜推荐" },
+            { id: 6, name: "轻量化无线游戏鼠标 三模充电", cat: "Keyboard", price: 699, old: 899, img: "https://images.unsplash.com/photo-1615663245857-acda6d9d6760?w=400&h=300&fit=crop", tag: "限时折扣" },
+            { id: 7, name: "Nintendo Switch OLED 掌机", cat: "all", price: 1850, old: 2099, img: "https://images.unsplash.com/photo-1612036782180-6f0b6b3c3270?w=400&h=300&fit=crop", tag: "热销爆款" },
+            { id: 8, name: "Intel i9 14900K 盒装CPU", cat: "GPU", price: 3799, old: 4199, img: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=400&h=300&fit=crop", tag: "新品首发" }
         ];
 
-        let cart = [];
-        let currentLang = 'zh'; // 'zh' or 'en'
-
-        // 2. 翻译词库
-        const translations = {
-            zh: {
-                nav_home: "首页", nav_all: "全站数码电竞", nav_new: "新品首发", nav_sale: "限时折扣",
-                category_title: "商品分类",
-                cat_all: "全部热销商品", cat_console: "PS5/Xbox/Switch主机", cat_gpu: "显卡CPU主板电脑", cat_keyboard: "机械键盘游戏鼠标", cat_audio: "电竞降噪耳机音响", cat_chair: "电竞椅电脑桌支架",
-                hot_title: "本周热销榜单",
-                f_guide_title: "购物指南", f_guide_1: "下单流程说明", f_guide_2: "支付方式介绍", f_guide_3: "全国物流配送", f_guide_4: "售后质保退换",
-                f_service_title: "客户服务", f_service_1: "国行正品保障", f_service_2: "硬件故障维修", f_service_3: "正规发票开具", f_service_4: "在线客服咨询",
-                f_brand_title: "品牌合作", f_brand_1: "数码品牌入驻", f_brand_2: "企业批量采购", f_brand_3: "电竞礼品定制", f_brand_4: "线下门店渠道",
-                f_about_title: "关于盾牌衣橱", f_about_1: "平台品牌介绍", f_about_2: "数码供应链渠道", f_about_3: "媒体品牌报道", f_about_4: "隐私使用政策",
-                f_telegram_label: "24小时在线客服 Telegram:", f_work_time: "客服工作时间：全天在线，秒回复咨询",
-                f_link_1: "隐私政策", f_link_2: "服务条款", f_link_3: "退换货规则",
-                add_cart: "加入购物车",
-                cart_empty: "购物车为空"
-            },
-            en: {
-                nav_home: "Home", nav_all: "All Digital", nav_new: "New Arrivals", nav_sale: "Limited Sale",
-                category_title: "Categories",
-                cat_all: "All Hot Products", cat_console: "PS5/Xbox/Switch", cat_gpu: "GPU/CPU/Motherboard", cat_keyboard: "Keyboards & Mice", cat_audio: "Gaming Headsets", cat_chair: "Gaming Chairs & Desks",
-                hot_title: "This Week's Hot List",
-                f_guide_title: "Shopping Guide", f_guide_1: "Order Process", f_guide_2: "Payment Methods", f_guide_3: "Shipping Info", f_guide_4: "Return Policy",
-                f_service_title: "Customer Service", f_service_1: "Genuine Warranty", f_service_2: "Hardware Repair", f_service_3: "Invoice Service", f_service_4: "Online Support",
-                f_brand_title: "Brand Cooperation", f_brand_1: "Brand Sign up", f_brand_2: "Bulk Purchase", f_brand_3: "Gift Customization", f_brand_4: "Offline Channels",
-                f_about_title: "About CHCSG", f_about_1: "Platform Intro", f_about_2: "Supply Chain", f_about_3: "Media Reports", f_about_4: "Privacy Policy",
-                f_telegram_label: "24/7 Support Telegram:", f_work_time: "Working Hours: 24/7, Instant Reply",
-                f_link_1: "Privacy", f_link_2: "Terms", f_link_3: "Returns",
-                add_cart: "Add to Cart",
-                cart_empty: "Cart is empty"
-            }
-        };
-
-        // 3. 渲染商品
         function renderProducts(data) {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
             data.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    <div class="img-wrap">
-                        <img src="${p.img}" alt="${p.name}">
-                        <span class="tag hot">${p.tag}</span>
-                    </div>
-                    <div class="prod-info">
-                        <div class="prod-name">${p.name}</div>
-                        <div class="prod-meta"><i class="fas fa-star" style="color:#f59e0b;"></i> 4.8</div>
-                        <div class="prod-price">
-                            <span class="price-current">¥${p.price}</span>
-                            <span class="price-old">¥${p.old_price}</span>
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <div class="img-wrap"><img src="${p.img}" alt="${p.name}"><span class="tag">${p.tag}</span></div>
+                        <div class="prod-info">
+                            <div class="prod-name">${p.name}</div>
+                            <div class="prod-price">¥${p.price} <del>¥${p.old}</del></div>
+                            <button class="add-btn" onclick="alert('已加入购物车')">加入购物车</button>
                         </div>
-                        <button class="add-btn" onclick="addToCart(${p.id})" data-key="add_cart">加入购物车</button>
                     </div>
                 `;
-                grid.appendChild(card);
             });
-            updateLanguageUI(); // 重新渲染后刷新一下翻译
         }
 
-        // 4. 分类筛选
-        function filterCategory(category, el) {
-            document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
-            el.classList.add('active');
-            
+        function filterProducts(cat) {
             let filtered = products;
-            if (category !== 'all') {
-                filtered = products.filter(p => p.cat === category);
-            }
+            if(cat !== 'all') filtered = products.filter(p => p.cat === cat);
             renderProducts(filtered);
         }
 
-        // 5. 购物车基本逻辑
-        function addToCart(id) {
-            const product = products.find(p => p.id === id);
-            const existing = cart.find(item => item.id === id);
-            if (existing) existing.quantity += 1;
-            else cart.push({ ...product, quantity: 1 });
-            document.getElementById('cartCount').innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
-            alert(`已添加 ${product.name} 到购物车！`);
-        }
-
-        // 6. 🌟 核心功能：中英双语切换
-        function toggleLanguage() {
-            currentLang = currentLang === 'zh' ? 'en' : 'zh';
-            document.getElementById('langLabel').innerText = currentLang === 'zh' ? '🇨🇳 中文' : '🇬🇧 EN';
-            updateLanguageUI();
-        }
-
-        function updateLanguageUI() {
-            const t = translations[currentLang];
-            // 遍历所有带 data-key 的元素
-            document.querySelectorAll('[data-key]').forEach(el => {
-                const key = el.getAttribute('data-key');
-                if (t[key]) {
-                    el.innerText = t[key];
-                }
-            });
-            // 特别处理【加入购物车】按钮
-            document.querySelectorAll('.add-btn').forEach(btn => {
-                const key = btn.getAttribute('data-key');
-                if (t[key]) btn.innerText = t[key];
-            });
-        }
-
-        // 7. 初始化
+        // 页面加载渲染
         renderProducts(products);
     </script>
 </body>
