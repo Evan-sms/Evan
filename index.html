@@ -143,18 +143,18 @@
     <div class="top-nav">
         <div class="logo"><i class="fas fa-shield-halved"></i> 盾牌衣橱</div>
         <div class="search-wrap">
-            <input type="text" placeholder="搜索时尚夹克、运动鞋、连衣裙...">
+            <input type="text" id="searchInput" placeholder="搜索时尚夹克、运动鞋、连衣裙...">
             <button>搜索</button>
         </div>
         <div class="nav-links">
-            <a>首页</a>
-            <a>新品首发</a>
-            <a>限时折扣</a>
+            <a id="nav_home">首页</a>
+            <a id="nav_new">新品首发</a>
+            <a id="nav_sale">限时折扣</a>
             <div class="lang-switch" onclick="toggleLanguage()">
                 <i class="fas fa-language"></i> <span id="langLabel">🇨🇳 中文</span>
             </div>
             <button class="cart-btn-wrap" onclick="openCart()">
-                <i class="fas fa-shopping-cart"></i> 购物车
+                <i class="fas fa-shopping-cart"></i> <span id="nav_cart">购物车</span>
                 <span class="cart-badge" id="cartBadge">0</span>
             </button>
         </div>
@@ -162,20 +162,20 @@
 
     <!-- 二级分类 -->
     <div class="sub-nav">
-        <a class="active" onclick="filterCategory('all', this)">全部分类</a>
-        <a onclick="filterCategory('男装', this)">男装</a>
-        <a onclick="filterCategory('女装', this)">女装</a>
-        <a onclick="filterCategory('鞋履', this)">鞋履</a>
-        <a onclick="filterCategory('配饰', this)">配饰</a>
+        <a class="active" id="sub_all" onclick="filterCategory('all', this)">全部分类</a>
+        <a id="sub_men" onclick="filterCategory('男装', this)">男装</a>
+        <a id="sub_women" onclick="filterCategory('女装', this)">女装</a>
+        <a id="sub_shoes" onclick="filterCategory('鞋履', this)">鞋履</a>
+        <a id="sub_acc" onclick="filterCategory('配饰', this)">配饰</a>
     </div>
 
     <!-- Banner -->
     <div class="container">
         <div class="hero-banner">
             <div class="hero-left">
-                <h1>盾牌衣橱<br>焕新上市</h1>
-                <p>精选棉麻、真丝与环保面料，涵盖男女装、鞋包配饰，让每一件衣服都陪伴您自信从容。</p>
-                <div class="hero-btn">立即选购</div>
+                <h1 id="banner_title">盾牌衣橱<br>焕新上市</h1>
+                <p id="banner_desc">精选棉麻、真丝与环保面料，涵盖男女装、鞋包配饰，让每一件衣服都陪伴您自信从容。</p>
+                <div class="hero-btn" id="banner_btn">立即选购</div>
             </div>
             <div class="hero-right">
                 <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000&auto=format&fit=crop" alt="Fashion Banner">
@@ -186,16 +186,16 @@
     <!-- 服务保障 -->
     <div class="container">
         <div class="service-grid">
-            <div class="service-card"><h4>正品保障</h4><p>官方授权品牌直营</p></div>
-            <div class="service-card"><h4>极速发货</h4><p>当日下单24小时发出</p></div>
-            <div class="service-card"><h4>超长质保</h4><p>7天无理由退换货</p></div>
-            <div class="service-card"><h4>在线客服</h4><p>全天候在线咨询</p></div>
+            <div class="service-card"><h4 id="srv1_t">正品保障</h4><p id="srv1_d">官方授权品牌直营</p></div>
+            <div class="service-card"><h4 id="srv2_t">极速发货</h4><p id="srv2_d">当日下单24小时发出</p></div>
+            <div class="service-card"><h4 id="srv3_t">超长质保</h4><p id="srv3_d">7天无理由退换货</p></div>
+            <div class="service-card"><h4 id="srv4_t">在线客服</h4><p id="srv4_d">全天候在线咨询</p></div>
         </div>
     </div>
 
     <!-- 商品列表 -->
     <div class="container products-section">
-        <div class="section-title">本周热销榜单</div>
+        <div class="section-title" id="list_title">本周热销榜单</div>
         <div class="product-grid" id="productGrid">
             <!-- 由JavaScript动态生成 -->
         </div>
@@ -205,27 +205,31 @@
     <footer>
         <div class="container">
             <div class="footer-grid">
-                <div class="f-col"><h4>购物指南</h4><ul><li>下单流程说明</li><li>支付方式介绍</li><li>全国物流配送</li><li>售后质保退换</li></ul></div>
-                <div class="f-col"><h4>客户服务</h4><ul><li>正品保障</li><li>尺码调换</li><li>正规发票开具</li><li>在线客服咨询</li></ul></div>
-                <div class="f-col"><h4>品牌合作</h4><ul><li>潮流品牌入驻</li><li>企业批量采购</li><li>联名礼品定制</li><li>线下门店渠道</li></ul></div>
-                <div class="f-col"><h4>关于盾牌衣橱</h4><ul><li>品牌故事</li><li>设计理念</li><li>媒体报道</li><li>隐私政策</li></ul></div>
+                <div class="f-col"><h4 id="f_g_t">购物指南</h4>
+                    <ul><li id="f_g_1">下单流程说明</li><li id="f_g_2">支付方式介绍</li><li id="f_g_3">全国物流配送</li><li id="f_g_4">售后质保退换</li></ul></div>
+                <div class="f-col"><h4 id="f_s_t">客户服务</h4>
+                    <ul><li id="f_s_1">正品保障</li><li id="f_s_2">尺码调换</li><li id="f_s_3">正规发票开具</li><li id="f_s_4">在线客服咨询</li></ul></div>
+                <div class="f-col"><h4 id="f_b_t">品牌合作</h4>
+                    <ul><li id="f_b_1">潮流品牌入驻</li><li id="f_b_2">企业批量采购</li><li id="f_b_3">联名礼品定制</li><li id="f_b_4">线下门店渠道</li></ul></div>
+                <div class="f-col"><h4 id="f_a_t">关于盾牌衣橱</h4>
+                    <ul><li id="f_a_1">品牌故事</li><li id="f_a_2">设计理念</li><li id="f_a_3">媒体报道</li><li id="f_a_4">隐私政策</li></ul></div>
             </div>
             <div class="footer-bottom">
-                <p>24小时在线客服 Telegram：<strong style="color: #4f46e5;">+1 412 774 3292</strong></p>
-                <p>© 2026 盾牌衣橱 版权所有</p>
+                <p id="f_contact">24小时在线客服 Telegram：<strong style="color: #4f46e5;">+1 412 774 3292</strong></p>
+                <p id="f_copy">© 2026 盾牌衣橱 版权所有</p>
             </div>
         </div>
     </footer>
 
     <!-- 购物车侧边栏 -->
     <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header"><h2>我的购物车</h2><span class="close-cart" onclick="closeCart()">×</span></div>
+        <div class="cart-header"><h2 id="cart_title">我的购物车</h2><span class="close-cart" onclick="closeCart()">×</span></div>
         <div class="cart-list" id="cartList">
-            <p style="text-align:center;color:#999;margin-top:40px;">购物车是空的，快去选购吧！</p>
+            <p style="text-align:center;color:#999;margin-top:40px;" id="cart_empty">购物车是空的，快去选购吧！</p>
         </div>
         <div class="cart-footer">
-            <div class="cart-total"><span>合计</span> <span id="cartTotal">¥0.00</span></div>
-            <button class="checkout-btn" onclick="openPayment()">去结算</button>
+            <div class="cart-total"><span id="cart_total_label">合计</span> <span id="cartTotal">¥0.00</span></div>
+            <button class="checkout-btn" id="btn_checkout" onclick="openPayment()">去结算</button>
         </div>
     </div>
 
@@ -233,124 +237,119 @@
     <div class="pay-overlay" id="payOverlay">
         <div class="pay-modal">
             <span class="close-modal" onclick="closePayment()">×</span>
-            <h3>安全支付</h3>
-            <p>请选择您的支付方式</p>
+            <h3 id="pay_title">安全支付</h3>
+            <p id="pay_sub">请选择您的支付方式</p>
             <div class="pay-methods">
                 <div class="pay-option active" onclick="selectPay(this)">
-                    <i class="far fa-credit-card"></i><span class="pay-name">在线卡支付</span><i class="fas fa-check-circle check"></i>
+                    <i class="far fa-credit-card"></i><span class="pay-name" id="pay_card">在线卡支付</span><i class="fas fa-check-circle check"></i>
                 </div>
                 <div class="pay-option" onclick="selectPay(this)">
-                    <i class="fab fa-weixin"></i><span class="pay-name">微信支付</span><i class="fas fa-check-circle check"></i>
+                    <i class="fab fa-weixin"></i><span class="pay-name" id="pay_wx">微信支付</span><i class="fas fa-check-circle check"></i>
                 </div>
                 <div class="pay-option" onclick="selectPay(this)">
-                    <i class="fab fa-btc"></i><span class="pay-name">USDT支付</span><i class="fas fa-check-circle check"></i>
+                    <i class="fab fa-btc"></i><span class="pay-name" id="pay_usdt">USDT支付</span><i class="fas fa-check-circle check"></i>
                 </div>
             </div>
-            <button class="confirm-pay-btn" onclick="processPayment()">确认支付</button>
+            <button class="confirm-pay-btn" id="pay_confirm" onclick="processPayment()">确认支付</button>
         </div>
     </div>
 
     <!-- JS业务逻辑 -->
     <script>
-        // --- 1. 商品数据库 (全是衣服鞋包，使用100%稳定的图床，必出图) ---
+        // --- 1. 商品数据库 (全是衣服鞋包，使用真实的高清服装图) ---
         const products = [
-            { id: 1, name: "亚麻混纺衬衫", cat: "男装", price: 399, img: "https://picsum.photos/seed/cloth1/400/400", tag: "新品" },
-            { id: 2, name: "真丝吊带裙", cat: "女装", price: 659, img: "https://picsum.photos/seed/cloth2/400/400", tag: "热卖" },
-            { id: 3, name: "棉麻休闲西装", cat: "男装", price: 529, img: "https://picsum.photos/seed/cloth3/400/400", tag: "爆款" },
-            { id: 4, name: "复古印花T恤", cat: "男装", price: 259, img: "https://picsum.photos/seed/cloth4/400/400", tag: "折扣" },
-            { id: 5, name: "草编托特包", cat: "配饰", price: 189, img: "https://picsum.photos/seed/cloth5/400/400", tag: "人气" },
-            { id: 6, name: "珍珠金属项链", cat: "配饰", price: 149, img: "https://picsum.photos/seed/cloth6/400/400", tag: "精选" },
-            { id: 7, name: "高腰阔腿裤", cat: "女装", price: 459, img: "https://picsum.photos/seed/cloth7/400/400", tag: "热卖" },
-            { id: 8, name: "帆布板鞋", cat: "鞋履", price: 329, img: "https://picsum.photos/seed/cloth8/400/400", tag: "经典" },
-            { id: 9, name: "针织开衫", cat: "女装", price: 489, img: "https://picsum.photos/seed/cloth9/400/400", tag: "新款" },
-            { id: 10, name: "皮质双肩包", cat: "配饰", price: 699, img: "https://picsum.photos/seed/cloth10/400/400", tag: "潮流" },
-            { id: 11, name: "运动束脚裤", cat: "男装", price: 279, img: "https://picsum.photos/seed/cloth11/400/400", tag: "休闲" },
-            { id: 12, name: "丝绸发带", cat: "配饰", price: 89, img: "https://picsum.photos/seed/cloth12/400/400", tag: "上新" },
-            { id: 13, name: "经典牛仔裤", cat: "男装", price: 359, img: "https://picsum.photos/seed/cloth13/400/400", tag: "畅销" },
-            { id: 14, name: "法式方领衬衫", cat: "女装", price: 299, img: "https://picsum.photos/seed/cloth14/400/400", tag: "优雅" },
-            { id: 15, name: "字母印花卫衣", cat: "男装", price: 419, img: "https://picsum.photos/seed/cloth15/400/400", tag: "新品" },
-            { id: 16, name: "百褶半身裙", cat: "女装", price: 389, img: "https://picsum.photos/seed/cloth16/400/400", tag: "热卖" },
-            { id: 17, name: "工装复古马丁靴", cat: "鞋履", price: 589, img: "https://picsum.photos/seed/cloth17/400/400", tag: "帅气" },
-            { id: 18, name: "棒球帽", cat: "配饰", price: 99, img: "https://picsum.photos/seed/cloth18/400/400", tag: "百搭" },
-            { id: 19, name: "轻薄防晒夹克", cat: "男装", price: 499, img: "https://picsum.photos/seed/cloth19/400/400", tag: "夏季" },
-            { id: 20, name: "瑜伽运动裤", cat: "女装", price: 259, img: "https://picsum.photos/seed/cloth20/400/400", tag: "舒适" },
-            { id: 21, name: "厚底老爹鞋", cat: "鞋履", price: 459, img: "https://picsum.photos/seed/cloth21/400/400", tag: "流行" },
-            { id: 22, name: "斜挎胸包", cat: "配饰", price: 229, img: "https://picsum.photos/seed/cloth22/400/400", tag: "便捷" },
-            { id: 23, name: "羊毛混纺大衣", cat: "女装", price: 1299, img: "https://picsum.photos/seed/cloth23/400/400", tag: "上新" },
-            { id: 24, name: "休闲哈伦裤", cat: "男装", price: 339, img: "https://picsum.photos/seed/cloth24/400/400", tag: "日常" }
+            // 男装
+            { id: 1, name_zh: "亚麻混纺衬衫", name_en: "Linen Blend Shirt", cat: "男装", price: 399, img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=400&fit=crop", tag: "新品" },
+            { id: 3, name_zh: "棉麻休闲西装", name_en: "Linen Casual Suit", cat: "男装", price: 529, img: "https://images.unsplash.com/photo-1594938298603-c8148c47de9a?w=400&h=400&fit=crop", tag: "爆款" },
+            { id: 4, name_zh: "复古印花T恤", name_en: "Vintage Print Tee", cat: "男装", price: 259, img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop", tag: "折扣" },
+            { id: 11, name_zh: "运动束脚裤", name_en: "Jogger Sweatpants", cat: "男装", price: 279, img: "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?w=400&h=400&fit=crop", tag: "休闲" },
+            { id: 13, name_zh: "经典牛仔裤", name_en: "Classic Jeans", cat: "男装", price: 359, img: "https://images.unsplash.com/photo-1542272617-08f086aaf9d9?w=400&h=400&fit=crop", tag: "畅销" },
+            { id: 15, name_zh: "字母印花卫衣", name_en: "Graphic Hoodie", cat: "男装", price: 419, img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&h=400&fit=crop", tag: "新品" },
+            { id: 19, name_zh: "轻薄防晒夹克", name_en: "Lightweight Jacket", cat: "男装", price: 499, img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&h=400&fit=crop", tag: "夏季" },
+            { id: 24, name_zh: "休闲哈伦裤", name_en: "Relaxed Harem Pants", cat: "男装", price: 339, img: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&h=400&fit=crop", tag: "日常" },
+            
+            // 女装
+            { id: 2, name_zh: "真丝吊带裙", name_en: "Silk Slip Dress", cat: "女装", price: 659, img: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=400&h=400&fit=crop", tag: "热卖" },
+            { id: 7, name_zh: "高腰阔腿裤", name_en: "High-Waist Wide Pants", cat: "女装", price: 459, img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&h=400&fit=crop", tag: "热卖" },
+            { id: 9, name_zh: "针织开衫", name_en: "Knit Cardigan", cat: "女装", price: 489, img: "https://images.unsplash.com/photo-1551009188-01b66a7196f2?w=400&h=400&fit=crop", tag: "新款" },
+            { id: 14, name_zh: "法式方领衬衫", name_en: "French Square Neck Top", cat: "女装", price: 299, img: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=400&h=400&fit=crop", tag: "优雅" },
+            { id: 16, name_zh: "百褶半身裙", name_en: "Pleated Midi Skirt", cat: "女装", price: 389, img: "https://images.unsplash.com/photo-1582142337728-b19475702335?w=400&h=400&fit=crop", tag: "热卖" },
+            { id: 20, name_zh: "瑜伽运动裤", name_en: "Yoga Leggings", cat: "女装", price: 259, img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop", tag: "舒适" },
+            { id: 23, name_zh: "羊毛混纺大衣", name_en: "Wool Blend Coat", cat: "女装", price: 1299, img: "https://images.unsplash.com/photo-1544441893-675973e31985?w=400&h=400&fit=crop", tag: "上新" },
+
+            // 鞋履
+            { id: 8, name_zh: "帆布板鞋", name_en: "Canvas Sneakers", cat: "鞋履", price: 329, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop", tag: "经典" },
+            { id: 17, name_zh: "工装复古马丁靴", name_en: "Retro Work Boots", cat: "鞋履", price: 589, img: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=400&h=400&fit=crop", tag: "帅气" },
+            { id: 21, name_zh: "厚底老爹鞋", name_en: "Chunky Dad Shoes", cat: "鞋履", price: 459, img: "https://images.unsplash.com/photo-1539185441755-769473a23570?w=400&h=400&fit=crop", tag: "流行" },
+
+            // 配饰
+            { id: 5, name_zh: "草编托特包", name_en: "Woven Tote Bag", cat: "配饰", price: 189, img: "https://images.unsplash.com/photo-1544816155-12df9643f363?w=400&h=400&fit=crop", tag: "人气" },
+            { id: 6, name_zh: "珍珠金属项链", name_en: "Pearl Metal Necklace", cat: "配饰", price: 149, img: "https://images.unsplash.com/photo-1599643478518-17488fbbcd75?w=400&h=400&fit=crop", tag: "精选" },
+            { id: 10, name_zh: "皮质双肩包", name_en: "Leather Backpack", cat: "配饰", price: 699, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop", tag: "潮流" },
+            { id: 12, name_zh: "丝绸发带", name_en: "Silk Headband", cat: "配饰", price: 89, img: "https://images.unsplash.com/photo-1627121774258-6111960b4f20?w=400&h=400&fit=crop", tag: "上新" },
+            { id: 18, name_zh: "棒球帽", name_en: "Baseball Cap", cat: "配饰", price: 99, img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89d?w=400&h=400&fit=crop", tag: "百搭" },
+            { id: 22, name_zh: "斜挎胸包", name_en: "Crossbody Chest Bag", cat: "配饰", price: 229, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop", tag: "便捷" }
         ];
 
         let cart = [];
         let currentCategory = 'all';
         let currentLang = 'zh';
 
-        // --- 多语言配置 ---
+        // --- 多语言配置 (增加商品相关的翻译变量) ---
         const langData = {
             zh: {
-                nav_home: "首页", nav_new: "新品首发", nav_sale: "限时折扣", cart_btn: "购物车",
+                nav_home: "首页", nav_new: "新品首发", nav_sale: "限时折扣", nav_cart: "购物车",
                 sub_all: "全部分类", sub_men: "男装", sub_women: "女装", sub_shoes: "鞋履", sub_acc: "配饰",
-                hero_btn: "立即选购", 
-                service_1_t: "正品保障", service_1_d: "官方授权品牌直营",
-                service_2_t: "极速发货", service_2_d: "当日下单24小时发出",
-                service_3_t: "超长质保", service_3_d: "7天无理由退换货",
-                service_4_t: "在线客服", service_4_d: "全天候在线咨询",
+                banner_title: "盾牌衣橱<br>焕新上市", banner_desc: "精选棉麻、真丝与环保面料，涵盖男女装、鞋包配饰，让每一件衣服都陪伴您自信从容。", banner_btn: "立即选购",
+                srv1_t: "正品保障", srv1_d: "官方授权品牌直营", srv2_t: "极速发货", srv2_d: "当日下单24小时发出", srv3_t: "超长质保", srv3_d: "7天无理由退换货", srv4_t: "在线客服", srv4_d: "全天候在线咨询",
                 list_title: "本周热销榜单",
                 f_g_t: "购物指南", f_g_1: "下单流程说明", f_g_2: "支付方式介绍", f_g_3: "全国物流配送", f_g_4: "售后质保退换",
                 f_s_t: "客户服务", f_s_1: "正品保障", f_s_2: "尺码调换", f_s_3: "正规发票开具", f_s_4: "在线客服咨询",
                 f_b_t: "品牌合作", f_b_1: "潮流品牌入驻", f_b_2: "企业批量采购", f_b_3: "联名礼品定制", f_b_4: "线下门店渠道",
                 f_a_t: "关于盾牌衣橱", f_a_1: "品牌故事", f_a_2: "设计理念", f_a_3: "媒体报道", f_a_4: "隐私政策",
-                f_contact: "24小时在线客服 Telegram：",
-                add_cart: "加入购物车",
-                cart_empty: "购物车是空的，快去选购吧！",
-                cart_title: "我的购物车",
-                cart_total: "合计",
-                btn_checkout: "去结算",
-                pay_title: "安全支付",
-                pay_sub: "请选择您的支付方式",
-                pay_card: "在线卡支付", pay_wx: "微信支付", pay_usdt: "USDT支付",
-                pay_confirm: "确认支付"
+                f_contact: "24小时在线客服 Telegram：", f_copy: "© 2026 盾牌衣橱 版权所有",
+                add_cart: "加入购物车", cart_empty: "购物车是空的，快去选购吧！", cart_title: "我的购物车", cart_total_label: "合计", btn_checkout: "去结算",
+                pay_title: "安全支付", pay_sub: "请选择您的支付方式", pay_card: "在线卡支付", pay_wx: "微信支付", pay_usdt: "USDT支付", pay_confirm: "确认支付",
+                currency: "¥"
             },
             en: {
-                nav_home: "Home", nav_new: "New Arrivals", nav_sale: "Sale", cart_btn: "Cart",
+                nav_home: "Home", nav_new: "New Arrivals", nav_sale: "Sale", nav_cart: "Cart",
                 sub_all: "All", sub_men: "Men", sub_women: "Women", sub_shoes: "Shoes", sub_acc: "Accessories",
-                hero_btn: "Shop Now",
-                service_1_t: "Authentic", service_1_d: "Official Brand Direct",
-                service_2_t: "Fast Shipping", service_2_d: "Shipped within 24h",
-                service_3_t: "Warranty", service_3_d: "7 Days Returns",
-                service_4_t: "Online Support", service_4_d: "24/7 Customer Care",
+                banner_title: "DUNPAI<br>New Collection", banner_desc: "Selected linen, silk, and eco-friendly fabrics. Men's and Women's apparel, bags, and accessories.", banner_btn: "Shop Now",
+                srv1_t: "Authentic", srv1_d: "Official Brand Direct", srv2_t: "Fast Shipping", srv2_d: "Shipped within 24h", srv3_t: "Warranty", srv3_d: "7 Days Returns", srv4_t: "Online Support", srv4_d: "24/7 Customer Care",
                 list_title: "This Week's Hot List",
                 f_g_t: "Shopping Guide", f_g_1: "Order Process", f_g_2: "Payment", f_g_3: "Shipping", f_g_4: "Returns",
                 f_s_t: "Support", f_s_1: "Authentic Guarantee", f_s_2: "Size Exchange", f_s_3: "Invoice", f_s_4: "Live Chat",
                 f_b_t: "Partners", f_b_1: "Brand Sign up", f_b_2: "Bulk Orders", f_b_3: "Co-branding", f_b_4: "Offline Stores",
                 f_a_t: "About Us", f_a_1: "Brand Story", f_a_2: "Design", f_a_3: "Media", f_a_4: "Privacy",
-                f_contact: "24/7 Support Telegram: ",
-                add_cart: "Add to Cart",
-                cart_empty: "Your cart is empty.",
-                cart_title: "My Cart",
-                cart_total: "Total",
-                btn_checkout: "Checkout",
-                pay_title: "Secure Payment",
-                pay_sub: "Select Payment Method",
-                pay_card: "Credit Card", pay_wx: "WeChat Pay", pay_usdt: "USDT",
-                pay_confirm: "Pay Now"
+                f_contact: "24/7 Support Telegram: ", f_copy: "© 2026 DUNPAI Wardrobe. All rights reserved.",
+                add_cart: "Add to Cart", cart_empty: "Your cart is empty.", cart_title: "My Cart", cart_total_label: "Total", btn_checkout: "Checkout",
+                pay_title: "Secure Payment", pay_sub: "Select Payment Method", pay_card: "Credit Card", pay_wx: "WeChat Pay", pay_usdt: "USDT", pay_confirm: "Pay Now",
+                currency: "$"
             }
         };
 
-        // --- 2. 渲染商品 ---
+        // --- 2. 渲染商品 (完善中英转换逻辑) ---
         function renderProducts() {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
             
             const filtered = currentCategory === 'all' ? products : products.filter(p => p.cat === currentCategory);
+            const t = langData[currentLang];
             
             filtered.forEach(p => {
+                // 根据当前语言取商品名
+                const pName = currentLang === 'zh' ? p.name_zh : p.name_en;
+                // 根据当前语言换算价格 (人民币转美元，保留一位小数即可)
+                const pPrice = currentLang === 'zh' ? p.price : (p.price / 7.2).toFixed(2);
+                
                 grid.innerHTML += `
                     <div class="product-card">
-                        <div class="img-wrap"><img src="${p.img}" alt="${p.name}"><span class="tag">${p.tag}</span></div>
+                        <div class="img-wrap"><img src="${p.img}" alt="${pName}"><span class="tag">${p.tag}</span></div>
                         <div class="prod-info">
-                            <div class="prod-name">${p.name}</div>
-                            <div class="prod-price"><span class="price-now">¥${p.price}</span></div>
-                            <button class="add-btn" onclick="addToCart(${p.id})">${currentLang === 'zh' ? '加入购物车' : 'Add to Cart'}</button>
+                            <div class="prod-name">${pName}</div>
+                            <div class="prod-price"><span class="price-now">${t.currency}${pPrice}</span></div>
+                            <button class="add-btn" onclick="addToCart(${p.id})">${t.add_cart}</button>
                         </div>
                     </div>
                 `;
@@ -378,19 +377,23 @@
             const list = document.getElementById('cartList');
             const badge = document.getElementById('cartBadge');
             const totalEl = document.getElementById('cartTotal');
+            const t = langData[currentLang];
             
             let total = 0, count = 0;
             list.innerHTML = '';
             
             cart.forEach((item, idx) => {
+                const pName = currentLang === 'zh' ? item.name_zh : item.name_en;
+                const pPrice = currentLang === 'zh' ? item.price : (item.price / 7.2).toFixed(2);
+                
                 total += item.price * item.qty;
                 count += item.qty;
                 list.innerHTML += `
                     <div class="cart-item">
-                        <img src="${item.img}" alt="${item.name}">
+                        <img src="${item.img}" alt="${pName}">
                         <div class="cart-item-info">
-                            <h4>${item.name}</h4>
-                            <p>¥${item.price}</p>
+                            <h4>${pName}</h4>
+                            <p>${t.currency}${pPrice}</p>
                         </div>
                         <div class="item-controls">
                             <button onclick="changeQty(${idx}, -1)">-</button>
@@ -402,12 +405,12 @@
             });
 
             if (cart.length === 0) {
-                const emptyText = currentLang === 'zh' ? '购物车是空的，快去选购吧！' : 'Your cart is empty.';
-                list.innerHTML = `<p style="text-align:center;color:#999;margin-top:40px;">${emptyText}</p>`;
+                list.innerHTML = `<p style="text-align:center;color:#999;margin-top:40px;">${t.cart_empty}</p>`;
             }
             
+            const displayTotal = currentLang === 'zh' ? total : (total / 7.2).toFixed(2);
             badge.innerText = count;
-            totalEl.innerText = `¥${total.toFixed(2)}`;
+            totalEl.innerText = `${t.currency}${displayTotal}`;
         }
 
         function changeQty(idx, change) {
@@ -443,83 +446,81 @@
             
             alert(msg);
             
-            // 清空购物车
             cart = [];
             updateCartUI();
             closePayment();
         }
 
-        // --- 5. 语言切换 ---
+        // --- 5. 语言切换 (通过ID绑定全面更新) ---
         function toggleLanguage() {
             currentLang = currentLang === 'zh' ? 'en' : 'zh';
             document.getElementById('langLabel').innerText = currentLang === 'zh' ? '🇨🇳 中文' : '🇬🇧 EN';
             applyLanguageUI();
-            renderProducts(); // 重新渲染商品，更新“加入购物车”按钮的文字
-            updateCartUI();   // 更新购物车空的提示文字
+            renderProducts();   // 重新渲染商品列表 (名字和价格都会变)
+            updateCartUI();     // 重新渲染购物车中的商品 (名字和价格都会变)
         }
 
         function applyLanguageUI() {
             const t = langData[currentLang];
             
             // 顶部导航
-            const navLinks = document.querySelectorAll('.top-nav .nav-links a');
-            if(navLinks[0]) navLinks[0].innerText = t.nav_home;
-            if(navLinks[1]) navLinks[1].innerText = t.nav_new;
-            if(navLinks[2]) navLinks[2].innerText = t.nav_sale;
-            document.querySelector('.cart-btn-wrap').childNodes[2].textContent = t.cart_btn;
+            document.getElementById('nav_home').innerText = t.nav_home;
+            document.getElementById('nav_new').innerText = t.nav_new;
+            document.getElementById('nav_sale').innerText = t.nav_sale;
+            document.getElementById('nav_cart').innerText = t.nav_cart;
 
             // 二级导航
-            const subLinks = document.querySelectorAll('.sub-nav a');
-            if(subLinks[0]) subLinks[0].innerText = t.sub_all;
-            if(subLinks[1]) subLinks[1].innerText = t.sub_men;
-            if(subLinks[2]) subLinks[2].innerText = t.sub_women;
-            if(subLinks[3]) subLinks[3].innerText = t.sub_shoes;
-            if(subLinks[4]) subLinks[4].innerText = t.sub_acc;
+            document.getElementById('sub_all').innerText = t.sub_all;
+            document.getElementById('sub_men').innerText = t.sub_men;
+            document.getElementById('sub_women').innerText = t.sub_women;
+            document.getElementById('sub_shoes').innerText = t.sub_shoes;
+            document.getElementById('sub_acc').innerText = t.sub_acc;
 
             // Banner
-            document.querySelector('.hero-btn').innerText = t.hero_btn;
+            document.getElementById('banner_title').innerHTML = t.banner_title;
+            document.getElementById('banner_desc').innerText = t.banner_desc;
+            document.getElementById('banner_btn').innerText = t.banner_btn;
 
             // 服务
-            const services = document.querySelectorAll('.service-card');
-            const sData = [t.service_1_t, t.service_2_t, t.service_3_t, t.service_4_t];
-            const sDesc = [t.service_1_d, t.service_2_d, t.service_3_d, t.service_4_d];
-            services.forEach((el, i) => {
-                el.querySelector('h4').innerText = sData[i];
-                el.querySelector('p').innerText = sDesc[i];
-            });
+            document.getElementById('srv1_t').innerText = t.srv1_t; document.getElementById('srv1_d').innerText = t.srv1_d;
+            document.getElementById('srv2_t').innerText = t.srv2_t; document.getElementById('srv2_d').innerText = t.srv2_d;
+            document.getElementById('srv3_t').innerText = t.srv3_t; document.getElementById('srv3_d').innerText = t.srv3_d;
+            document.getElementById('srv4_t').innerText = t.srv4_t; document.getElementById('srv4_d').innerText = t.srv4_d;
 
             // 商品标题
-            document.querySelector('.section-title').innerText = t.list_title;
+            document.getElementById('list_title').innerText = t.list_title;
 
             // 底部
-            const footerCols = document.querySelectorAll('.f-col h4');
-            footerCols[0].innerText = t.f_g_t;
-            footerCols[1].innerText = t.f_s_t;
-            footerCols[2].innerText = t.f_b_t;
-            footerCols[3].innerText = t.f_a_t;
-
-            const footerLis = document.querySelectorAll('.f-col ul li');
-            const fTexts = [t.f_g_1, t.f_g_2, t.f_g_3, t.f_g_4, t.f_s_1, t.f_s_2, t.f_s_3, t.f_s_4, t.f_b_1, t.f_b_2, t.f_b_3, t.f_b_4, t.f_a_1, t.f_a_2, t.f_a_3, t.f_a_4];
-            footerLis.forEach((el, i) => { if(fTexts[i]) el.innerText = fTexts[i]; });
-
-            // 底部客服
-            const contactText = document.querySelector('.footer-bottom p');
-            contactText.childNodes[0].textContent = t.f_contact;
-
-            // 购物车
-            document.querySelector('.cart-header h2').innerText = t.cart_title;
-            document.querySelector('.cart-total span:first-child').innerText = t.cart_total;
-            document.querySelector('.checkout-btn').innerText = t.btn_checkout;
+            document.getElementById('f_g_t').innerText = t.f_g_t; document.getElementById('f_g_1').innerText = t.f_g_1;
+            document.getElementById('f_g_2').innerText = t.f_g_2; document.getElementById('f_g_3').innerText = t.f_g_3;
+            document.getElementById('f_g_4').innerText = t.f_g_4;
             
-            // 支付弹窗
-            document.querySelector('.pay-modal h3').innerText = t.pay_title;
-            document.querySelector('.pay-modal p').innerText = t.pay_sub;
+            document.getElementById('f_s_t').innerText = t.f_s_t; document.getElementById('f_s_1').innerText = t.f_s_1;
+            document.getElementById('f_s_2').innerText = t.f_s_2; document.getElementById('f_s_3').innerText = t.f_s_3;
+            document.getElementById('f_s_4').innerText = t.f_s_4;
             
-            const payNames = document.querySelectorAll('.pay-option .pay-name');
-            payNames[0].innerText = t.pay_card;
-            payNames[1].innerText = t.pay_wx;
-            payNames[2].innerText = t.pay_usdt;
-            document.querySelector('.confirm-pay-btn').innerText = t.pay_confirm;
+            document.getElementById('f_b_t').innerText = t.f_b_t; document.getElementById('f_b_1').innerText = t.f_b_1;
+            document.getElementById('f_b_2').innerText = t.f_b_2; document.getElementById('f_b_3').innerText = t.f_b_3;
+            document.getElementById('f_b_4').innerText = t.f_b_4;
+            
+            document.getElementById('f_a_t').innerText = t.f_a_t; document.getElementById('f_a_1').innerText = t.f_a_1;
+            document.getElementById('f_a_2').innerText = t.f_a_2; document.getElementById('f_a_3').innerText = t.f_a_3;
+            document.getElementById('f_a_4').innerText = t.f_a_4;
+            
+            document.getElementById('f_contact').innerHTML = `${t.f_contact}<strong style="color: #4f46e5;">+1 412 774 3292</strong>`;
+            document.getElementById('f_copy').innerText = t.f_copy;
+
+            // 购物车 & 支付弹窗
+            document.getElementById('cart_title').innerText = t.cart_title;
+            document.getElementById('cart_total_label').innerText = t.cart_total_label;
+            document.getElementById('btn_checkout').innerText = t.btn_checkout;
+            
+            document.getElementById('pay_title').innerText = t.pay_title;
+            document.getElementById('pay_sub').innerText = t.pay_sub;
+            document.getElementById('pay_card').innerText = t.pay_card;
+            document.getElementById('pay_wx').innerText = t.pay_wx;
+            document.getElementById('pay_usdt').innerText = t.pay_usdt;
+            document.getElementById('pay_confirm').innerText = t.pay_confirm;
         }
 
         // 初始化页面
