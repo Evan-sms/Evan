@@ -256,39 +256,39 @@
 
     <!-- JS业务逻辑 -->
     <script>
-        // --- 1. 使用 picsum.photos 绝对稳定图床，每款都是服装/鞋包/配饰 ---
+        // --- 1. 商品数据库 (根据商品名称，一对一配置了精准的 Clothing/Fashion 高清图) ---
         const products = [
-            // 男装
-            { id: 1, name_zh: "亚麻混纺衬衫", name_en: "Linen Blend Shirt", cat: "男装", price: 399, img: "https://picsum.photos/seed/shirt1/400/400", tag: "新品" },
-            { id: 3, name_zh: "棉麻休闲西装", name_en: "Linen Casual Suit", cat: "男装", price: 529, img: "https://picsum.photos/seed/suit3/400/400", tag: "爆款" },
-            { id: 4, name_zh: "复古印花T恤", name_en: "Vintage Print Tee", cat: "男装", price: 259, img: "https://picsum.photos/seed/tee4/400/400", tag: "折扣" },
-            { id: 11, name_zh: "运动束脚裤", name_en: "Jogger Sweatpants", cat: "男装", price: 279, img: "https://picsum.photos/seed/jogger11/400/400", tag: "休闲" },
-            { id: 13, name_zh: "经典牛仔裤", name_en: "Classic Jeans", cat: "男装", price: 359, img: "https://picsum.photos/seed/jeans13/400/400", tag: "畅销" },
-            { id: 15, name_zh: "字母印花卫衣", name_en: "Graphic Hoodie", cat: "男装", price: 419, img: "https://picsum.photos/seed/hoodie15/400/400", tag: "新品" },
-            { id: 19, name_zh: "轻薄防晒夹克", name_en: "Lightweight Jacket", cat: "男装", price: 499, img: "https://picsum.photos/seed/jacket19/400/400", tag: "夏季" },
-            { id: 24, name_zh: "休闲哈伦裤", name_en: "Relaxed Harem Pants", cat: "男装", price: 339, img: "https://picsum.photos/seed/pants24/400/400", tag: "日常" },
+            // 男装 (Man's Clothing)
+            { id: 1, name_zh: "亚麻混纺衬衫", name_en: "Linen Blend Shirt", cat: "男装", price: 399, img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=400&fit=crop", tag: "新品" },
+            { id: 3, name_zh: "棉麻休闲西装", name_en: "Linen Casual Suit", cat: "男装", price: 529, img: "https://images.unsplash.com/photo-1594938298603-c8148c47de9a?w=400&h=400&fit=crop", tag: "爆款" },
+            { id: 4, name_zh: "复古印花T恤", name_en: "Vintage Print Tee", cat: "男装", price: 259, img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop", tag: "折扣" },
+            { id: 11, name_zh: "运动束脚裤", name_en: "Jogger Sweatpants", cat: "男装", price: 279, img: "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?w=400&h=400&fit=crop", tag: "休闲" },
+            { id: 13, name_zh: "经典牛仔裤", name_en: "Classic Jeans", cat: "男装", price: 359, img: "https://images.unsplash.com/photo-1542272617-08f086aaf9d9?w=400&h=400&fit=crop", tag: "畅销" },
+            { id: 15, name_zh: "字母印花卫衣", name_en: "Graphic Hoodie", cat: "男装", price: 419, img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&h=400&fit=crop", tag: "新品" },
+            { id: 19, name_zh: "轻薄防晒夹克", name_en: "Lightweight Jacket", cat: "男装", price: 499, img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&h=400&fit=crop", tag: "夏季" },
+            { id: 24, name_zh: "休闲哈伦裤", name_en: "Relaxed Harem Pants", cat: "男装", price: 339, img: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&h=400&fit=crop", tag: "日常" },
             
-            // 女装
-            { id: 2, name_zh: "真丝吊带裙", name_en: "Silk Slip Dress", cat: "女装", price: 659, img: "https://picsum.photos/seed/dress2/400/400", tag: "热卖" },
-            { id: 7, name_zh: "高腰阔腿裤", name_en: "High-Waist Wide Pants", cat: "女装", price: 459, img: "https://picsum.photos/seed/wideleg7/400/400", tag: "热卖" },
-            { id: 9, name_zh: "针织开衫", name_en: "Knit Cardigan", cat: "女装", price: 489, img: "https://picsum.photos/seed/cardigan9/400/400", tag: "新款" },
-            { id: 14, name_zh: "法式方领衬衫", name_en: "French Square Neck Top", cat: "女装", price: 299, img: "https://picsum.photos/seed/french14/400/400", tag: "优雅" },
-            { id: 16, name_zh: "百褶半身裙", name_en: "Pleated Midi Skirt", cat: "女装", price: 389, img: "https://picsum.photos/seed/skirt16/400/400", tag: "热卖" },
-            { id: 20, name_zh: "瑜伽运动裤", name_en: "Yoga Leggings", cat: "女装", price: 259, img: "https://picsum.photos/seed/yoga20/400/400", tag: "舒适" },
-            { id: 23, name_zh: "羊毛混纺大衣", name_en: "Wool Blend Coat", cat: "女装", price: 1299, img: "https://picsum.photos/seed/coat23/400/400", tag: "上新" },
+            // 女装 (Woman's Clothing)
+            { id: 2, name_zh: "真丝吊带裙", name_en: "Silk Slip Dress", cat: "女装", price: 659, img: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=400&h=400&fit=crop", tag: "热卖" },
+            { id: 7, name_zh: "高腰阔腿裤", name_en: "High-Waist Wide Pants", cat: "女装", price: 459, img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&h=400&fit=crop", tag: "热卖" },
+            { id: 9, name_zh: "针织开衫", name_en: "Knit Cardigan", cat: "女装", price: 489, img: "https://images.unsplash.com/photo-1551009188-01b66a7196f2?w=400&h=400&fit=crop", tag: "新款" },
+            { id: 14, name_zh: "法式方领衬衫", name_en: "French Square Neck Top", cat: "女装", price: 299, img: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=400&h=400&fit=crop", tag: "优雅" },
+            { id: 16, name_zh: "百褶半身裙", name_en: "Pleated Midi Skirt", cat: "女装", price: 389, img: "https://images.unsplash.com/photo-1582142337728-b19475702335?w=400&h=400&fit=crop", tag: "热卖" },
+            { id: 20, name_zh: "瑜伽运动裤", name_en: "Yoga Leggings", cat: "女装", price: 259, img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop", tag: "舒适" },
+            { id: 23, name_zh: "羊毛混纺大衣", name_en: "Wool Blend Coat", cat: "女装", price: 1299, img: "https://images.unsplash.com/photo-1544441893-675973e31985?w=400&h=400&fit=crop", tag: "上新" },
 
-            // 鞋履
-            { id: 8, name_zh: "帆布板鞋", name_en: "Canvas Sneakers", cat: "鞋履", price: 329, img: "https://picsum.photos/seed/shoes8/400/400", tag: "经典" },
-            { id: 17, name_zh: "工装复古马丁靴", name_en: "Retro Work Boots", cat: "鞋履", price: 589, img: "https://picsum.photos/seed/boots17/400/400", tag: "帅气" },
-            { id: 21, name_zh: "厚底老爹鞋", name_en: "Chunky Dad Shoes", cat: "鞋履", price: 459, img: "https://picsum.photos/seed/dadshoes21/400/400", tag: "流行" },
+            // 鞋履 (Shoes)
+            { id: 8, name_zh: "帆布板鞋", name_en: "Canvas Sneakers", cat: "鞋履", price: 329, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop", tag: "经典" },
+            { id: 17, name_zh: "工装复古马丁靴", name_en: "Retro Work Boots", cat: "鞋履", price: 589, img: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=400&h=400&fit=crop", tag: "帅气" },
+            { id: 21, name_zh: "厚底老爹鞋", name_en: "Chunky Dad Shoes", cat: "鞋履", price: 459, img: "https://images.unsplash.com/photo-1539185441755-769473a23570?w=400&h=400&fit=crop", tag: "流行" },
 
-            // 配饰
-            { id: 5, name_zh: "草编托特包", name_en: "Woven Tote Bag", cat: "配饰", price: 189, img: "https://picsum.photos/seed/tote5/400/400", tag: "人气" },
-            { id: 6, name_zh: "珍珠金属项链", name_en: "Pearl Metal Necklace", cat: "配饰", price: 149, img: "https://picsum.photos/seed/necklace6/400/400", tag: "精选" },
-            { id: 10, name_zh: "皮质双肩包", name_en: "Leather Backpack", cat: "配饰", price: 699, img: "https://picsum.photos/seed/backpack10/400/400", tag: "潮流" },
-            { id: 12, name_zh: "丝绸发带", name_en: "Silk Headband", cat: "配饰", price: 89, img: "https://picsum.photos/seed/headband12/400/400", tag: "上新" },
-            { id: 18, name_zh: "棒球帽", name_en: "Baseball Cap", cat: "配饰", price: 99, img: "https://picsum.photos/seed/cap18/400/400", tag: "百搭" },
-            { id: 22, name_zh: "斜挎胸包", name_en: "Crossbody Chest Bag", cat: "配饰", price: 229, img: "https://picsum.photos/seed/chestbag22/400/400", tag: "便捷" }
+            // 配饰 (Accessories)
+            { id: 5, name_zh: "草编托特包", name_en: "Woven Tote Bag", cat: "配饰", price: 189, img: "https://images.unsplash.com/photo-1544816155-12df9643f363?w=400&h=400&fit=crop", tag: "人气" },
+            { id: 6, name_zh: "珍珠金属项链", name_en: "Pearl Metal Necklace", cat: "配饰", price: 149, img: "https://images.unsplash.com/photo-1599643478518-17488fbbcd75?w=400&h=400&fit=crop", tag: "精选" },
+            { id: 10, name_zh: "皮质双肩包", name_en: "Leather Backpack", cat: "配饰", price: 699, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop", tag: "潮流" },
+            { id: 12, name_zh: "丝绸发带", name_en: "Silk Headband", cat: "配饰", price: 89, img: "https://images.unsplash.com/photo-1627121774258-6111960b4f20?w=400&h=400&fit=crop", tag: "上新" },
+            { id: 18, name_zh: "棒球帽", name_en: "Baseball Cap", cat: "配饰", price: 99, img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89d?w=400&h=400&fit=crop", tag: "百搭" },
+            { id: 22, name_zh: "斜挎胸包", name_en: "Crossbody Chest Bag", cat: "配饰", price: 229, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop", tag: "便捷" }
         ];
 
         let cart = [];
