@@ -3,390 +3,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxe Vault | 高端潮流服饰</title>
-    <!-- 引入 FontAwesome 图标库 -->
+    <title>盾牌衣橱 CHCSG - 电竞数码商城</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- 基础重置与高级设计系统 --- */
+        /* --- 全局设计变量 --- */
         :root {
-            --primary: #1a1a1a;
-            --secondary: #f5f5f0;
-            --accent: #c89d6e;
-            --text-main: #222;
-            --text-light: #777;
-            --border: #e0e0e0;
-            --shadow: 0 10px 40px rgba(0,0,0,0.05);
-            --radius: 16px;
+            --primary: #000000;
+            --bg-color: #f4f5f7;
+            --card-bg: #ffffff;
+            --text-main: #333;
+            --text-light: #888;
+            --accent: #3b82f6; /* 科技蓝 */
+            --border: #e5e7eb;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
-        body { background: #fafafa; color: var(--text-main); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 0; }
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
-        img { max-width: 100%; display: block; object-fit: cover; }
-
-        /* --- 导航栏 --- */
+        
+        /* --- 顶部导航栏 --- */
         header {
-            background: rgba(255,255,255,0.85);
-            backdrop-filter: blur(20px);
-            padding: 18px 5%;
+            background: var(--primary);
+            color: white;
+            padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(0,0,0,0.03);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
         }
-        .logo { font-size: 26px; font-weight: 800; letter-spacing: -1px; display: flex; align-items: center; gap: 8px; }
-        .logo i { color: var(--accent); }
-        .nav-links { display: flex; gap: 40px; font-weight: 500; font-size: 15px; }
-        .nav-links li:hover { color: var(--accent); cursor: pointer; }
-        .nav-actions { display: flex; align-items: center; gap: 20px; }
-        .nav-actions i { font-size: 20px; cursor: pointer; transition: 0.3s; }
-        .nav-actions i:hover { color: var(--accent); }
-        .lang-switch { border: 1px solid var(--border); padding: 6px 14px; border-radius: 50px; font-size: 13px; font-weight: 600; background: white; cursor: pointer; display: flex; align-items: center; gap: 6px; }
-        .cart-btn { position: relative; }
-        .cart-count { position: absolute; top: -8px; right: -8px; background: #d32f2f; color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; display: flex; justify-content: center; align-items: center; font-weight: bold; }
+        .logo { font-size: 22px; font-weight: 800; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; color: #fff; }
+        .logo span { color: var(--accent); }
+        .search-box { display: flex; flex: 1; max-width: 500px; margin: 0 30px; }
+        .search-box input { flex: 1; padding: 10px 15px; border: none; border-radius: 4px 0 0 4px; outline: none; }
+        .search-box button { padding: 0 20px; background: var(--accent); color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; font-weight: bold; }
+        .nav-links { display: flex; gap: 25px; font-size: 14px; align-items: center; font-weight: 500; }
+        .nav-links a:hover { color: var(--accent); transition: 0.3s; cursor: pointer; }
+        .cart-btn { position: relative; background: transparent; color: white; border: none; font-size: 18px; cursor: pointer; }
+        .cart-count { position: absolute; top: -8px; right: -8px; background: #d32f2f; color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; display: flex; justify-content: center; align-items: center; }
         
-        /* --- Hero 头部横幅 --- */
-        .hero {
-            height: 420px;
-            background: linear-gradient(135deg, #f3ece4 0%, #e8dfd3 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-            padding: 0 20px;
-        }
-        .hero h1 { font-size: 56px; font-weight: 300; letter-spacing: 2px; color: #2c2c2c; margin-bottom: 10px; }
-        .hero p { font-size: 18px; color: #666; margin-bottom: 30px; font-weight: 300; }
-        .hero-btn { background: var(--primary); color: white; padding: 14px 48px; border-radius: 50px; border: none; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: 0.3s; }
-        .hero-btn:hover { transform: translateY(-2px); background: #333; }
+        /* --- 语言切换按钮 --- */
+        .lang-switch { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 13px; transition: 0.3s; font-weight: 600; }
+        .lang-switch:hover { background: rgba(255,255,255,0.2); }
 
-        /* --- 商品网格 --- */
-        .container { max-width: 1280px; margin: 60px auto; padding: 0 20px; }
-        .section-title { font-size: 28px; font-weight: 500; margin-bottom: 40px; letter-spacing: -0.5px; border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 8px; }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        .product-card {
-            background: white;
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            border: 1px solid rgba(0,0,0,0.02);
-        }
-        .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
-        .img-container { height: 320px; overflow: hidden; background: #f8f8f8; }
-        .img-container img { width: 100%; height: 100%; transition: transform 0.6s; }
-        .product-card:hover .img-container img { transform: scale(1.05); }
-        .product-info { padding: 20px; }
-        .product-cat { font-size: 12px; color: var(--text-light); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
-        .product-name { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
-        .product-price { font-size: 20px; font-weight: 700; color: var(--primary); }
-        .add-cart-btn { 
-            margin-top: 15px; width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 50px; cursor: pointer; font-weight: 600; transition: 0.3s;
-        }
-        .add-cart-btn:hover { background: #444; }
-
-        /* --- 侧边购物车 --- */
-        .cart-sidebar {
-            position: fixed; top: 0; right: -420px; width: 400px; height: 100vh;
-            background: white; box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-            padding: 30px; transition: right 0.4s ease-in-out; z-index: 2000;
-            display: flex; flex-direction: column;
-        }
-        .cart-sidebar.active { right: 0; }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
-        .cart-header h2 { font-size: 22px; font-weight: 500; }
-        .close-cart { font-size: 28px; cursor: pointer; line-height: 1; }
-        .cart-items { flex: 1; overflow-y: auto; }
-        .cart-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #f5f5f5; }
-        .cart-item img { width: 70px; height: 70px; border-radius: 8px; object-fit: cover; }
-        .cart-item-info { flex: 1; }
-        .cart-item-info h4 { font-size: 15px; margin-bottom: 4px; }
-        .cart-item-info p { color: var(--accent); font-weight: bold; }
-        .cart-item-controls { display: flex; align-items: center; gap: 12px; }
-        .cart-item-controls button { background: #f0f0f0; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; }
-        .cart-footer { padding-top: 20px; border-top: 1px solid #eee; }
-        .cart-total { display: flex; justify-content: space-between; font-size: 20px; font-weight: 700; margin-bottom: 20px; }
-        .checkout-btn { width: 100%; background: var(--accent); color: white; border: none; padding: 18px; border-radius: 50px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .checkout-btn:hover { background: #b0885c; }
-
-        /* --- 高级结算模态框 (支付界面) --- */
-        .checkout-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); z-index: 3000; display: none; justify-content: center; align-items: center; }
-        .checkout-overlay.active { display: flex; }
-        .checkout-modal { background: white; width: 100%; max-width: 480px; padding: 40px; border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.3); position: relative; animation: popUp 0.3s ease; }
-        @keyframes popUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .close-modal { position: absolute; top: 20px; right: 20px; font-size: 24px; cursor: pointer; color: #999; }
-        .modal-title { font-size: 24px; font-weight: 600; margin-bottom: 10px; }
-        .modal-sub { color: #666; margin-bottom: 30px; font-size: 14px; }
+        /* --- 主体布局：左分类，右商品 --- */
+        .main-container { display: flex; max-width: 1400px; margin: 30px auto; padding: 0 20px; gap: 20px; }
         
-        .pay-methods { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
-        .pay-option {
-            display: flex; align-items: center; gap: 15px; padding: 16px 20px;
-            border: 2px solid #eee; border-radius: 12px; cursor: pointer; transition: 0.2s;
-        }
-        .pay-option:hover { border-color: #bbb; background: #fafafa; }
-        .pay-option.active { border-color: var(--accent); background: #faf6f2; }
-        .pay-option i { font-size: 24px; width: 30px; color: #333; }
-        .pay-option .pay-name { font-weight: 600; flex: 1; }
-        .pay-option .pay-check { color: var(--accent); display: none; }
-        .pay-option.active .pay-check { display: block; }
+        /* 左侧分类栏 */
+        .sidebar { width: 260px; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); height: fit-content; position: sticky; top: 80px; }
+        .sidebar-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+        .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f9f9f9; cursor: pointer; font-size: 14px; color: #444; transition: 0.2s; }
+        .sidebar-item:hover, .sidebar-item.active { color: var(--accent); font-weight: 600; }
+        .sidebar-item i { width: 20px; text-align: center; color: #666; }
+        .sidebar-item:hover i { color: var(--accent); }
 
-        .pay-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 18px; border-radius: 50px; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.2s; }
-        .pay-btn:hover { background: #333; }
+        /* 右侧内容区 */
+        .content-area { flex: 1; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .section-title { font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .section-title i { color: #f59e0b; }
 
-        /* --- 页脚 (联系方式) --- */
-        footer { background: var(--primary); color: #ddd; padding: 60px 20px; margin-top: 80px; }
-        .footer-content { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .footer-col h4 { color: white; font-size: 18px; margin-bottom: 20px; }
-        .footer-col p { margin-bottom: 12px; font-size: 14px; display: flex; align-items: center; gap: 10px; }
-        .footer-col a { color: var(--accent); transition: 0.3s; }
-        .footer-col a:hover { color: white; }
+        /* 商品网格 */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+        .product-card { background: white; border-radius: 12px; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+        .product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
+        .img-wrap { position: relative; height: 200px; background: #f0f0f0; overflow: hidden; }
+        .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .product-card:hover .img-wrap img { transform: scale(1.05); }
+        .tag { position: absolute; top: 10px; left: 10px; background: var(--accent); color: white; font-size: 12px; padding: 3px 10px; border-radius: 4px; font-weight: 600; }
+        .tag.hot { background: #ef4444; }
 
+        .prod-info { padding: 16px; }
+        .prod-name { font-size: 15px; font-weight: 600; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 42px; margin-bottom: 6px; }
+        .prod-meta { font-size: 12px; color: #999; display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+        .prod-price { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+        .price-current { font-size: 20px; font-weight: 800; color: #d32f2f; }
+        .price-old { font-size: 14px; text-decoration: line-through; color: #aaa; }
+        .add-btn { width: 100%; padding: 10px; background: var(--primary); color: white; border: none; border-radius: 30px; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.3s; }
+        .add-btn:hover { background: #333; }
+
+        /* --- 底部 Footer --- */
+        footer { background: #111; color: #ccc; padding: 60px 40px 20px; margin-top: 60px; }
+        .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; border-bottom: 1px solid #333; padding-bottom: 40px; }
+        .f-col h4 { color: #fff; margin-bottom: 20px; font-size: 16px; }
+        .f-col ul li { margin-bottom: 12px; font-size: 14px; cursor: pointer; transition: 0.2s; }
+        .f-col ul li:hover { color: var(--accent); }
+        .f-col ul li i { width: 20px; color: var(--accent); margin-right: 8px; }
+        
+        .footer-contact { max-width: 1400px; margin: 30px auto 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .footer-contact p { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #aaa; }
+        .footer-contact a { color: var(--accent); font-weight: bold; }
+        .footer-copy { text-align: center; margin-top: 30px; font-size: 12px; color: #666; }
+
+        /* --- 响应式 --- */
         @media (max-width: 768px) {
-            .product-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
-            .cart-sidebar { width: 100%; right: -100%; }
-            .hero h1 { font-size: 36px; }
-            .footer-content { grid-template-columns: 1fr; }
-            .checkout-modal { margin: 20px; padding: 30px 20px; }
+            header { padding: 10px 20px; flex-direction: column; gap: 10px; }
+            .search-box { margin: 10px 0; width: 100%; max-width: 100%; }
+            .main-container { flex-direction: column; }
+            .sidebar { width: 100%; position: static; display: flex; flex-wrap: wrap; gap: 10px; padding: 15px; }
+            .sidebar-title { width: 100%; margin-bottom: 10px; border-bottom: none; padding-bottom: 0; }
+            .sidebar-item { border-bottom: none; padding: 8px 12px; border: 1px solid #eee; border-radius: 20px; flex: 1 0 40%; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 导航栏 -->
+    <!-- 顶部导航 -->
     <header>
-        <div class="logo"><i class="fas fa-gem"></i> LUXE</div>
-        <ul class="nav-links">
-            <li>NEW IN</li>
-            <li>WOMEN</li>
-            <li>MEN</li>
-            <li>ACCESSORIES</li>
-        </ul>
-        <div class="nav-actions">
-            <div class="lang-switch"><i class="fas fa-globe"></i> EN / 中文</div>
-            <i class="fas fa-user"></i>
-            <div class="cart-btn" onclick="toggleCart()">
-                <i class="fas fa-shopping-bag"></i>
-                <span class="cart-count" id="cartCount">0</span>
+        <div class="logo"><i class="fas fa-shield-halved"></i> 盾牌衣橱 <span>CHCSG</span></div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="搜索游戏手柄、显卡、主机、电竞外设...">
+            <button onclick="searchProducts()">搜索</button>
+        </div>
+        <div class="nav-links">
+            <a data-key="nav_home">首页</a>
+            <a data-key="nav_all">全站数码电竞</a>
+            <a data-key="nav_new">新品首发</a>
+            <a data-key="nav_sale">限时折扣</a>
+            <div class="lang-switch" onclick="toggleLanguage()">
+                <i class="fas fa-language"></i> <span id="langLabel">🇨🇳 中文</span>
             </div>
+            <button class="cart-btn" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
         </div>
     </header>
 
-    <!-- 横幅 -->
-    <section class="hero">
-        <h1>Summer Essential 2026</h1>
-        <p>Lightweight linen, sustainable silk & urban elegance.</p>
-        <button class="hero-btn">Shop Now <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></button>
-    </section>
+    <!-- 主体：左边栏 + 右边商品 -->
+    <div class="main-container">
+        <!-- 左侧分类 -->
+        <div class="sidebar">
+            <div class="sidebar-title" data-key="category_title">商品分类</div>
+            <div class="sidebar-item active" onclick="filterCategory('all', this)"><i class="fas fa-th-large"></i> <span data-key="cat_all">全部热销商品</span></div>
+            <div class="sidebar-item" onclick="filterCategory('Console', this)"><i class="fab fa-playstation"></i> <span data-key="cat_console">PS5/Xbox/Switch主机</span></div>
+            <div class="sidebar-item" onclick="filterCategory('GPU', this)"><i class="fas fa-microchip"></i> <span data-key="cat_gpu">显卡CPU主板电脑</span></div>
+            <div class="sidebar-item" onclick="filterCategory('Keyboard', this)"><i class="fas fa-keyboard"></i> <span data-key="cat_keyboard">机械键盘游戏鼠标</span></div>
+            <div class="sidebar-item" onclick="filterCategory('Audio', this)"><i class="fas fa-headphones"></i> <span data-key="cat_audio">电竞降噪耳机音响</span></div>
+            <div class="sidebar-item" onclick="filterCategory('Chair', this)"><i class="fas fa-chair"></i> <span data-key="cat_chair">电竞椅电脑桌支架</span></div>
+        </div>
 
-    <!-- 商品列表 -->
-    <div class="container">
-        <h2 class="section-title">Curated Collection</h2>
-        <div class="product-grid" id="productGrid">
-            <!-- 商品会通过 JS 动态插入，保证代码简洁并且都带图 -->
-        </div>
-    </div>
-
-    <!-- 购物车侧边栏 -->
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h2>Shopping Bag</h2>
-            <span class="close-cart" onclick="toggleCart()">×</span>
-        </div>
-        <div class="cart-items" id="cartItemsContainer">
-            <p style="color: #999; text-align: center; margin-top: 40px;">Your bag is currently empty.</p>
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total"><span>Total</span> <span id="cartTotal">$0.00</span></div>
-            <button class="checkout-btn" onclick="openCheckout()">Proceed to Checkout</button>
-        </div>
-    </div>
-
-    <!-- 结算支付弹窗 -->
-    <div class="checkout-overlay" id="checkoutOverlay">
-        <div class="checkout-modal">
-            <span class="close-modal" onclick="closeCheckout()">×</span>
-            <h3 class="modal-title">Secure Checkout</h3>
-            <p class="modal-sub">Select your preferred payment method.</p>
-            
-            <div class="pay-methods">
-                <div class="pay-option active" onclick="selectPay(this)">
-                    <i class="far fa-credit-card"></i>
-                    <span class="pay-name">Online Card Payment</span>
-                    <i class="fas fa-check-circle pay-check"></i>
-                </div>
-                <div class="pay-option" onclick="selectPay(this)">
-                    <i class="fab fa-weixin"></i>
-                    <span class="pay-name">WeChat Pay</span>
-                    <i class="fas fa-check-circle pay-check"></i>
-                </div>
-                <div class="pay-option" onclick="selectPay(this)">
-                    <i class="fab fa-btc"></i>
-                    <span class="pay-name">USDT / Crypto</span>
-                    <i class="fas fa-check-circle pay-check"></i>
-                </div>
+        <!-- 右侧商品区 -->
+        <div class="content-area">
+            <div class="section-header">
+                <div class="section-title"><i class="fas fa-fire"></i> <span data-key="hot_title">本周热销榜单</span></div>
             </div>
             
-            <button class="pay-btn" onclick="processPayment()">Confirm Payment</button>
+            <!-- 商品卡片网格 -->
+            <div class="product-grid" id="productGrid">
+                <!-- JS动态生成 -->
+            </div>
         </div>
     </div>
 
-    <!-- 页脚 -->
+    <!-- 底部Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-col">
-                <h4>LUXE VAULT</h4>
-                <p>Redefining modern fashion with sustainability and style.</p>
+        <div class="footer-grid">
+            <div class="f-col">
+                <h4 data-key="f_guide_title">购物指南</h4>
+                <ul>
+                    <li data-key="f_guide_1">下单流程说明</li>
+                    <li data-key="f_guide_2">支付方式介绍</li>
+                    <li data-key="f_guide_3">全国物流配送</li>
+                    <li data-key="f_guide_4">售后质保退换</li>
+                </ul>
             </div>
-            <div class="footer-col">
-                <h4>24/7 Customer Support</h4>
-                <p><i class="fas fa-phone"></i> Direct: <a href="tel:+14127743292">+1 412 774 3292</a></p>
-                <p><i class="fab fa-telegram-plane"></i> Telegram: <a href="https://t.me/+14127743292">+1 412 774 3292</a></p>
-                <p><i class="fas fa-envelope"></i> Email: support@luxevault.com</p>
-                <p><i class="fas fa-clock"></i> Online 24/7</p>
+            <div class="f-col">
+                <h4 data-key="f_service_title">客户服务</h4>
+                <ul>
+                    <li data-key="f_service_1">国行正品保障</li>
+                    <li data-key="f_service_2">硬件故障维修</li>
+                    <li data-key="f_service_3">正规发票开具</li>
+                    <li data-key="f_service_4">在线客服咨询</li>
+                </ul>
+            </div>
+            <div class="f-col">
+                <h4 data-key="f_brand_title">品牌合作</h4>
+                <ul>
+                    <li data-key="f_brand_1">数码品牌入驻</li>
+                    <li data-key="f_brand_2">企业批量采购</li>
+                    <li data-key="f_brand_3">电竞礼品定制</li>
+                    <li data-key="f_brand_4">线下门店渠道</li>
+                </ul>
+            </div>
+            <div class="f-col">
+                <h4 data-key="f_about_title">关于盾牌衣橱</h4>
+                <ul>
+                    <li data-key="f_about_1">平台品牌介绍</li>
+                    <li data-key="f_about_2">数码供应链渠道</li>
+                    <li data-key="f_about_3">媒体品牌报道</li>
+                    <li data-key="f_about_4">隐私使用政策</li>
+                </ul>
             </div>
         </div>
+
+        <div class="footer-contact">
+            <p><span data-key="f_telegram_label">24小时在线客服 Telegram:</span> <a href="https://t.me/+6588521816">+65 88521816</a> <span style="color:#666;font-size:12px;margin-left:10px;" data-key="f_work_time">客服工作时间：全天在线，秒回复咨询</span></p>
+            <p style="font-size:13px; color:#888;">
+                <a href="#" data-key="f_link_1">隐私政策</a> | <a href="#" data-key="f_link_2">服务条款</a> | <a href="#" data-key="f_link_3">退换货规则</a>
+            </p>
+        </div>
+        <div class="footer-copy">© 2026 CHCSG盾牌衣橱 电竞数码商城 版权所有 | 官方运营平台</div>
     </footer>
 
-    <!-- 核心逻辑 JS -->
+    <!-- 核心功能 JS -->
     <script>
-        // 1. 模拟真实商品数据 (所有商品均使用 Unsplash 高质量实体图，保证不缺失)
+        // 1. 数据准备：3C数码商品 (图片均使用稳定图床)
         const products = [
-            { id: 1, name: "Linen Relaxed Blazer", category: "Men", price: 529, img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80" },
-            { id: 2, name: "Silk Pleated Midi Dress", category: "Women", price: 659, img: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=600&q=80" },
-            { id: 3, name: "Vintage Graphic Tee", category: "Men", price: 259, img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80" },
-            { id: 4, name: "Canvas Tote Bag", category: "Accessories", price: 189, img: "https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&q=80" },
-            { id: 5, name: "Gold Pearl Necklace", category: "Accessories", price: 149, img: "https://images.unsplash.com/photo-1599643478518-17488fbbcd75?w=600&q=80" },
-            { id: 6, name: "Tailored Suit Jacket", category: "Men", price: 459, img: "https://images.unsplash.com/photo-1594938298603-c8148c47de9a?w=600&q=80" },
-            { id: 7, name: "Nike Air Sneakers", category: "Men", price: 329, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" },
-            { id: 8, name: "Cotton Bomber Jacket", category: "Women", price: 489, img: "https://images.unsplash.com/photo-1551009188-01b66a7196f2?w=600&q=80" },
-            { id: 9, name: "Leather Backpack", category: "Accessories", price: 699, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80" },
-            { id: 10, name: "Silk Headband", category: "Accessories", price: 89, img: "https://images.unsplash.com/photo-1627121774258-6111960b4f20?w=600&q=80" }
+            { id: 1, name: "PS5 光驱版游戏主机", cat: "Console", price: 3280, old_price: 3999, img: "https://picsum.photos/400/300?random=1", tag: "限时7折" },
+            { id: 2, name: "RTX 4070Ti Super 显卡", cat: "GPU", price: 6890, old_price: 7999, img: "https://picsum.photos/400/300?random=2", tag: "热销爆款" },
+            { id: 3, name: "机械键盘RGB背光游戏键盘", cat: "Keyboard", price: 459, old_price: 699, img: "https://picsum.photos/400/300?random=3", tag: "新品首发" },
+            { id: 4, name: "7.1声道电竞头戴游戏耳机", cat: "Audio", price: 869, old_price: 1099, img: "https://picsum.photos/400/300?random=4", tag: "限时好物" },
+            { id: 5, name: "人体工学可升降电竞椅", cat: "Chair", price: 2560, old_price: 3099, img: "https://picsum.photos/400/300?random=5", tag: "掌柜推荐" },
+            { id: 6, name: "轻量化无线游戏鼠标", cat: "Keyboard", price: 699, old_price: 899, img: "https://picsum.photos/400/300?random=6", tag: "限时折扣" },
+            { id: 7, name: "Xbox Series X 主机", cat: "Console", price: 3850, old_price: 4299, img: "https://picsum.photos/400/300?random=7", tag: "热销爆款" },
+            { id: 8, name: "Intel i9 14900K 处理器", cat: "GPU", price: 3799, old_price: 4199, img: "https://picsum.photos/400/300?random=8", tag: "新品首发" },
+            { id: 9, name: "台式机显示器27寸4K", cat: "Chair", price: 1899, old_price: 2299, img: "https://picsum.photos/400/300?random=9", tag: "限时好物" },
+            { id: 10, name: "Nintendo Switch OLED", cat: "Console", price: 1850, old_price: 2099, img: "https://picsum.photos/400/300?random=10", tag: "掌柜推荐" },
+            { id: 11, name: "电竞桌 RGB 发光桌板", cat: "Chair", price: 890, old_price: 1099, img: "https://picsum.photos/400/300?random=11", tag: "限时折扣" },
+            { id: 12, name: "降噪入耳式电竞耳机", cat: "Audio", price: 329, old_price: 459, img: "https://picsum.photos/400/300?random=12", tag: "热销爆款" }
         ];
 
         let cart = [];
-        const currencySymbol = '$';
+        let currentLang = 'zh'; // 'zh' or 'en'
 
-        // 2. 渲染商品列表
-        function renderProducts() {
+        // 2. 翻译词库
+        const translations = {
+            zh: {
+                nav_home: "首页", nav_all: "全站数码电竞", nav_new: "新品首发", nav_sale: "限时折扣",
+                category_title: "商品分类",
+                cat_all: "全部热销商品", cat_console: "PS5/Xbox/Switch主机", cat_gpu: "显卡CPU主板电脑", cat_keyboard: "机械键盘游戏鼠标", cat_audio: "电竞降噪耳机音响", cat_chair: "电竞椅电脑桌支架",
+                hot_title: "本周热销榜单",
+                f_guide_title: "购物指南", f_guide_1: "下单流程说明", f_guide_2: "支付方式介绍", f_guide_3: "全国物流配送", f_guide_4: "售后质保退换",
+                f_service_title: "客户服务", f_service_1: "国行正品保障", f_service_2: "硬件故障维修", f_service_3: "正规发票开具", f_service_4: "在线客服咨询",
+                f_brand_title: "品牌合作", f_brand_1: "数码品牌入驻", f_brand_2: "企业批量采购", f_brand_3: "电竞礼品定制", f_brand_4: "线下门店渠道",
+                f_about_title: "关于盾牌衣橱", f_about_1: "平台品牌介绍", f_about_2: "数码供应链渠道", f_about_3: "媒体品牌报道", f_about_4: "隐私使用政策",
+                f_telegram_label: "24小时在线客服 Telegram:", f_work_time: "客服工作时间：全天在线，秒回复咨询",
+                f_link_1: "隐私政策", f_link_2: "服务条款", f_link_3: "退换货规则",
+                add_cart: "加入购物车",
+                cart_empty: "购物车为空"
+            },
+            en: {
+                nav_home: "Home", nav_all: "All Digital", nav_new: "New Arrivals", nav_sale: "Limited Sale",
+                category_title: "Categories",
+                cat_all: "All Hot Products", cat_console: "PS5/Xbox/Switch", cat_gpu: "GPU/CPU/Motherboard", cat_keyboard: "Keyboards & Mice", cat_audio: "Gaming Headsets", cat_chair: "Gaming Chairs & Desks",
+                hot_title: "This Week's Hot List",
+                f_guide_title: "Shopping Guide", f_guide_1: "Order Process", f_guide_2: "Payment Methods", f_guide_3: "Shipping Info", f_guide_4: "Return Policy",
+                f_service_title: "Customer Service", f_service_1: "Genuine Warranty", f_service_2: "Hardware Repair", f_service_3: "Invoice Service", f_service_4: "Online Support",
+                f_brand_title: "Brand Cooperation", f_brand_1: "Brand Sign up", f_brand_2: "Bulk Purchase", f_brand_3: "Gift Customization", f_brand_4: "Offline Channels",
+                f_about_title: "About CHCSG", f_about_1: "Platform Intro", f_about_2: "Supply Chain", f_about_3: "Media Reports", f_about_4: "Privacy Policy",
+                f_telegram_label: "24/7 Support Telegram:", f_work_time: "Working Hours: 24/7, Instant Reply",
+                f_link_1: "Privacy", f_link_2: "Terms", f_link_3: "Returns",
+                add_cart: "Add to Cart",
+                cart_empty: "Cart is empty"
+            }
+        };
+
+        // 3. 渲染商品
+        function renderProducts(data) {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
-            products.forEach(p => {
+            data.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-                    <div class="img-container"><img src="${p.img}" alt="${p.name}" loading="lazy"></div>
-                    <div class="product-info">
-                        <div class="product-cat">${p.category}</div>
-                        <div class="product-name">${p.name}</div>
-                        <div class="product-price">${currencySymbol}${p.price}</div>
-                        <button class="add-cart-btn" onclick="addToCart(${p.id})">Add to Cart</button>
+                    <div class="img-wrap">
+                        <img src="${p.img}" alt="${p.name}">
+                        <span class="tag hot">${p.tag}</span>
+                    </div>
+                    <div class="prod-info">
+                        <div class="prod-name">${p.name}</div>
+                        <div class="prod-meta"><i class="fas fa-star" style="color:#f59e0b;"></i> 4.8</div>
+                        <div class="prod-price">
+                            <span class="price-current">¥${p.price}</span>
+                            <span class="price-old">¥${p.old_price}</span>
+                        </div>
+                        <button class="add-btn" onclick="addToCart(${p.id})" data-key="add_cart">加入购物车</button>
                     </div>
                 `;
                 grid.appendChild(card);
             });
+            updateLanguageUI(); // 重新渲染后刷新一下翻译
         }
 
-        // 3. 购物车逻辑
+        // 4. 分类筛选
+        function filterCategory(category, el) {
+            document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
+            el.classList.add('active');
+            
+            let filtered = products;
+            if (category !== 'all') {
+                filtered = products.filter(p => p.cat === category);
+            }
+            renderProducts(filtered);
+        }
+
+        // 5. 购物车基本逻辑
         function addToCart(id) {
             const product = products.find(p => p.id === id);
             const existing = cart.find(item => item.id === id);
-            if (existing) {
-                existing.quantity += 1;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
-            updateCartUI();
-            // 打开侧边栏
-            document.getElementById('cartSidebar').classList.add('active');
+            if (existing) existing.quantity += 1;
+            else cart.push({ ...product, quantity: 1 });
+            document.getElementById('cartCount').innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
+            alert(`已添加 ${product.name} 到购物车！`);
         }
 
-        function updateCartUI() {
-            const container = document.getElementById('cartItemsContainer');
-            const count = document.getElementById('cartCount');
-            const totalEl = document.getElementById('cartTotal');
-            
-            let total = 0;
-            let itemCount = 0;
-            
-            if (cart.length === 0) {
-                container.innerHTML = `<p style="color: #999; text-align: center; margin-top: 40px;">Your bag is currently empty.</p>`;
-            } else {
-                container.innerHTML = '';
-                cart.forEach((item, index) => {
-                    total += item.price * item.quantity;
-                    itemCount += item.quantity;
-                    
-                    const div = document.createElement('div');
-                    div.className = 'cart-item';
-                    div.innerHTML = `
-                        <img src="${item.img}" alt="${item.name}">
-                        <div class="cart-item-info">
-                            <h4>${item.name}</h4>
-                            <p>${currencySymbol}${item.price}</p>
-                        </div>
-                        <div class="cart-item-controls">
-                            <button onclick="changeQty(${index}, -1)">-</button>
-                            <span>${item.quantity}</span>
-                            <button onclick="changeQty(${index}, 1)">+</button>
-                        </div>
-                    `;
-                    container.appendChild(div);
-                });
-            }
-            
-            count.innerText = itemCount;
-            totalEl.innerText = `${currencySymbol}${total.toFixed(2)}`;
+        // 6. 🌟 核心功能：中英双语切换
+        function toggleLanguage() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            document.getElementById('langLabel').innerText = currentLang === 'zh' ? '🇨🇳 中文' : '🇬🇧 EN';
+            updateLanguageUI();
         }
 
-        function changeQty(index, change) {
-            if (cart[index].quantity + change <= 0) {
-                cart.splice(index, 1);
-            } else {
-                cart[index].quantity += change;
-            }
-            updateCartUI();
+        function updateLanguageUI() {
+            const t = translations[currentLang];
+            // 遍历所有带 data-key 的元素
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (t[key]) {
+                    el.innerText = t[key];
+                }
+            });
+            // 特别处理【加入购物车】按钮
+            document.querySelectorAll('.add-btn').forEach(btn => {
+                const key = btn.getAttribute('data-key');
+                if (t[key]) btn.innerText = t[key];
+            });
         }
 
-        function toggleCart() {
-            document.getElementById('cartSidebar').classList.toggle('active');
-        }
-
-        // 4. 支付结算逻辑
-        function openCheckout() {
-            if (cart.length === 0) { alert("Your cart is empty."); return; }
-            document.getElementById('checkoutOverlay').classList.add('active');
-            toggleCart(); // 关闭购物车侧边栏
-        }
-
-        function closeCheckout() {
-            document.getElementById('checkoutOverlay').classList.remove('active');
-        }
-
-        function selectPay(el) {
-            document.querySelectorAll('.pay-option').forEach(p => p.classList.remove('active'));
-            el.classList.add('active');
-        }
-
-        function processPayment() {
-            // 真实的支付需要向服务器发送请求，这里做前端全流程模拟
-            const selectedMethod = document.querySelector('.pay-option.active .pay-name').innerText;
-            alert(`Processing payment via ${selectedMethod}...\n\nThank you for your purchase!\n(Real order system would process here)`);
-            closeCheckout();
-            cart = [];
-            updateCartUI();
-        }
-
-        // 初始化
-        renderProducts();
+        // 7. 初始化
+        renderProducts(products);
     </script>
 </body>
 </html>
