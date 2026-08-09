@@ -30,6 +30,10 @@
         .nav-links { display: flex; gap: 25px; font-size: 14px; font-weight: 500; align-items: center; }
         .nav-links a:hover { color: var(--accent-blue); cursor: pointer; }
         
+        /* --- 语言切换按钮 --- */
+        .lang-switch { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 13px; transition: 0.3s; font-weight: 600; }
+        .lang-switch:hover { background: rgba(255,255,255,0.2); }
+        
         /* --- 购物车按钮 --- */
         .cart-btn-wrap { position: relative; display: flex; align-items: center; gap: 6px; background: transparent; color: white; border: none; font-size: 14px; font-weight: 600; cursor: pointer; }
         .cart-badge { position: absolute; top: -8px; right: -10px; background: #ef4444; color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; display: flex; justify-content: center; align-items: center; font-weight: bold; transition: 0.3s; }
@@ -71,7 +75,6 @@
         .price-now { font-size: 20px; font-weight: 700; color: #d32f2f; }
         .price-old { font-size: 14px; color: #aaa; text-decoration: line-through; }
         .add-btn { width: 100%; padding: 10px; background: var(--primary-black); color: white; border: none; border-radius: 30px; cursor: pointer; transition: 0.3s; font-weight: 600; }
-        .add-btn:hover { background: #333; }
 
         /* --- 底部 --- */
         footer { background: #0f111a; color: #9ca3af; padding: 60px 0 20px; margin-top: 40px; }
@@ -100,7 +103,7 @@
         .checkout-btn { width: 100%; background: var(--accent-blue); color: white; border: none; padding: 16px; border-radius: 30px; font-weight: 700; cursor: pointer; transition: 0.3s; }
         .checkout-btn:hover { background: #4338ca; }
 
-        /* --- 支付弹窗 (真实模拟) --- */
+        /* --- 支付弹窗 --- */
         .pay-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 3000; }
         .pay-overlay.active { display: flex; }
         .pay-modal { background: white; width: 100%; max-width: 480px; padding: 40px; border-radius: 20px; position: relative; animation: popIn 0.3s; }
@@ -146,6 +149,9 @@
             <a>首页</a>
             <a>新品首发</a>
             <a>限时折扣</a>
+            <div class="lang-switch" onclick="toggleLanguage()">
+                <i class="fas fa-language"></i> <span id="langLabel">🇨🇳 中文</span>
+            </div>
             <button class="cart-btn-wrap" onclick="openCart()">
                 <i class="fas fa-shopping-cart"></i> 购物车
                 <span class="cart-badge" id="cartBadge">0</span>
@@ -155,11 +161,11 @@
 
     <!-- 二级分类 -->
     <div class="sub-nav">
-        <a class="active">全部分类</a>
-        <a onclick="filterCategory('男装')">男装</a>
-        <a onclick="filterCategory('女装')">女装</a>
-        <a onclick="filterCategory('鞋履')">鞋履</a>
-        <a onclick="filterCategory('配饰')">配饰</a>
+        <a class="active" onclick="filterCategory('all', this)">全部分类</a>
+        <a onclick="filterCategory('男装', this)">男装</a>
+        <a onclick="filterCategory('女装', this)">女装</a>
+        <a onclick="filterCategory('鞋履', this)">鞋履</a>
+        <a onclick="filterCategory('配饰', this)">配饰</a>
     </div>
 
     <!-- Banner -->
@@ -245,24 +251,89 @@
 
     <!-- JS业务逻辑 -->
     <script>
-        // --- 1. 商品数据库 (全是衣服鞋包，都有实体图) ---
+        // --- 1. 商品数据库 (全是衣服鞋包，且使用100%稳定的图床) ---
         const products = [
-            { id: 1, name: "亚麻混纺衬衫", cat: "男装", price: 399, img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=400&fit=crop", tag: "新品" },
-            { id: 2, name: "真丝吊带裙", cat: "女装", price: 659, img: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=400&h=400&fit=crop", tag: "热卖" },
-            { id: 3, name: "棉麻休闲西装", cat: "男装", price: 529, img: "https://images.unsplash.com/photo-1594938298603-c8148c47de9a?w=400&h=400&fit=crop", tag: "爆款" },
-            { id: 4, name: "复古印花T恤", cat: "男装", price: 259, img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop", tag: "折扣" },
-            { id: 5, name: "草编托特包", cat: "配饰", price: 189, img: "https://images.unsplash.com/photo-1544816155-12df9643f363?w=400&h=400&fit=crop", tag: "人气" },
-            { id: 6, name: "珍珠金属项链", cat: "配饰", price: 149, img: "https://images.unsplash.com/photo-1599643478518-17488fbbcd75?w=400&h=400&fit=crop", tag: "精选" },
-            { id: 7, name: "高腰阔腿裤", cat: "女装", price: 459, img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&h=400&fit=crop", tag: "热卖" },
-            { id: 8, name: "帆布板鞋", cat: "鞋履", price: 329, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop", tag: "经典" },
-            { id: 9, name: "针织开衫", cat: "女装", price: 489, img: "https://images.unsplash.com/photo-1551009188-01b66a7196f2?w=400&h=400&fit=crop", tag: "新款" },
-            { id: 10, name: "皮质双肩包", cat: "配饰", price: 699, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop", tag: "潮流" },
-            { id: 11, name: "运动束脚裤", cat: "男装", price: 279, img: "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?w=400&h=400&fit=crop", tag: "休闲" },
-            { id: 12, name: "丝绸发带", cat: "配饰", price: 89, img: "https://images.unsplash.com/photo-1627121774258-6111960b4f20?w=400&h=400&fit=crop", tag: "上新" }
+            { id: 1, name: "亚麻混纺衬衫", cat: "男装", price: 399, img: "https://picsum.photos/seed/cloth1/400/400", tag: "新品" },
+            { id: 2, name: "真丝吊带裙", cat: "女装", price: 659, img: "https://picsum.photos/seed/cloth2/400/400", tag: "热卖" },
+            { id: 3, name: "棉麻休闲西装", cat: "男装", price: 529, img: "https://picsum.photos/seed/cloth3/400/400", tag: "爆款" },
+            { id: 4, name: "复古印花T恤", cat: "男装", price: 259, img: "https://picsum.photos/seed/cloth4/400/400", tag: "折扣" },
+            { id: 5, name: "草编托特包", cat: "配饰", price: 189, img: "https://picsum.photos/seed/cloth5/400/400", tag: "人气" },
+            { id: 6, name: "珍珠金属项链", cat: "配饰", price: 149, img: "https://picsum.photos/seed/cloth6/400/400", tag: "精选" },
+            { id: 7, name: "高腰阔腿裤", cat: "女装", price: 459, img: "https://picsum.photos/seed/cloth7/400/400", tag: "热卖" },
+            { id: 8, name: "帆布板鞋", cat: "鞋履", price: 329, img: "https://picsum.photos/seed/cloth8/400/400", tag: "经典" },
+            { id: 9, name: "针织开衫", cat: "女装", price: 489, img: "https://picsum.photos/seed/cloth9/400/400", tag: "新款" },
+            { id: 10, name: "皮质双肩包", cat: "配饰", price: 699, img: "https://picsum.photos/seed/cloth10/400/400", tag: "潮流" },
+            { id: 11, name: "运动束脚裤", cat: "男装", price: 279, img: "https://picsum.photos/seed/cloth11/400/400", tag: "休闲" },
+            { id: 12, name: "丝绸发带", cat: "配饰", price: 89, img: "https://picsum.photos/seed/cloth12/400/400", tag: "上新" },
+            { id: 13, name: "经典牛仔裤", cat: "男装", price: 359, img: "https://picsum.photos/seed/cloth13/400/400", tag: "畅销" },
+            { id: 14, name: "法式方领衬衫", cat: "女装", price: 299, img: "https://picsum.photos/seed/cloth14/400/400", tag: "优雅" },
+            { id: 15, name: "字母印花卫衣", cat: "男装", price: 419, img: "https://picsum.photos/seed/cloth15/400/400", tag: "新品" },
+            { id: 16, name: "百褶半身裙", cat: "女装", price: 389, img: "https://picsum.photos/seed/cloth16/400/400", tag: "热卖" },
+            { id: 17, name: "工装复古马丁靴", cat: "鞋履", price: 589, img: "https://picsum.photos/seed/cloth17/400/400", tag: "帅气" },
+            { id: 18, name: "棒球帽", cat: "配饰", price: 99, img: "https://picsum.photos/seed/cloth18/400/400", tag: "百搭" },
+            { id: 19, name: "轻薄防晒夹克", cat: "男装", price: 499, img: "https://picsum.photos/seed/cloth19/400/400", tag: "夏季" },
+            { id: 20, name: "瑜伽运动裤", cat: "女装", price: 259, img: "https://picsum.photos/seed/cloth20/400/400", tag: "舒适" },
+            { id: 21, name: "厚底老爹鞋", cat: "鞋履", price: 459, img: "https://picsum.photos/seed/cloth21/400/400", tag: "流行" },
+            { id: 22, name: "斜挎胸包", cat: "配饰", price: 229, img: "https://picsum.photos/seed/cloth22/400/400", tag: "便捷" },
+            { id: 23, name: "羊毛混纺大衣", cat: "女装", price: 1299, img: "https://picsum.photos/seed/cloth23/400/400", tag: "上新" },
+            { id: 24, name: "休闲哈伦裤", cat: "男装", price: 339, img: "https://picsum.photos/seed/cloth24/400/400", tag: "日常" }
         ];
 
         let cart = [];
         let currentCategory = 'all';
+        let currentLang = 'zh';
+
+        // --- 多语言配置 ---
+        const langData = {
+            zh: {
+                nav_home: "首页", nav_new: "新品首发", nav_sale: "限时折扣", cart_btn: "购物车",
+                sub_all: "全部分类", sub_men: "男装", sub_women: "女装", sub_shoes: "鞋履", sub_acc: "配饰",
+                hero_btn: "立即选购", 
+                service_1_t: "正品保障", service_1_d: "官方授权品牌直营",
+                service_2_t: "极速发货", service_2_d: "当日下单24小时发出",
+                service_3_t: "超长质保", service_3_d: "7天无理由退换货",
+                service_4_t: "在线客服", service_4_d: "全天候在线咨询",
+                list_title: "本周热销榜单",
+                f_g_t: "购物指南", f_g_1: "下单流程说明", f_g_2: "支付方式介绍", f_g_3: "全国物流配送", f_g_4: "售后质保退换",
+                f_s_t: "客户服务", f_s_1: "正品保障", f_s_2: "尺码调换", f_s_3: "正规发票开具", f_s_4: "在线客服咨询",
+                f_b_t: "品牌合作", f_b_1: "潮流品牌入驻", f_b_2: "企业批量采购", f_b_3: "联名礼品定制", f_b_4: "线下门店渠道",
+                f_a_t: "关于盾牌衣橱", f_a_1: "品牌故事", f_a_2: "设计理念", f_a_3: "媒体报道", f_a_4: "隐私政策",
+                f_contact: "24小时在线客服 Telegram：",
+                add_cart: "加入购物车",
+                cart_empty: "购物车是空的，快去选购吧！",
+                cart_title: "我的购物车",
+                cart_total: "合计",
+                btn_checkout: "去结算",
+                pay_title: "安全支付",
+                pay_sub: "请选择您的支付方式",
+                pay_card: "在线卡支付", pay_wx: "微信支付", pay_usdt: "USDT支付",
+                pay_confirm: "确认支付"
+            },
+            en: {
+                nav_home: "Home", nav_new: "New Arrivals", nav_sale: "Sale", cart_btn: "Cart",
+                sub_all: "All", sub_men: "Men", sub_women: "Women", sub_shoes: "Shoes", sub_acc: "Accessories",
+                hero_btn: "Shop Now",
+                service_1_t: "Authentic", service_1_d: "Official Brand Direct",
+                service_2_t: "Fast Shipping", service_2_d: "Shipped within 24h",
+                service_3_t: "Warranty", service_3_d: "7 Days Returns",
+                service_4_t: "Online Support", service_4_d: "24/7 Customer Care",
+                list_title: "This Week's Hot List",
+                f_g_t: "Shopping Guide", f_g_1: "Order Process", f_g_2: "Payment", f_g_3: "Shipping", f_g_4: "Returns",
+                f_s_t: "Support", f_s_1: "Authentic Guarantee", f_s_2: "Size Exchange", f_s_3: "Invoice", f_s_4: "Live Chat",
+                f_b_t: "Partners", f_b_1: "Brand Sign up", f_b_2: "Bulk Orders", f_b_3: "Co-branding", f_b_4: "Offline Stores",
+                f_a_t: "About Us", f_a_1: "Brand Story", f_a_2: "Design", f_a_3: "Media", f_a_4: "Privacy",
+                f_contact: "24/7 Support Telegram: ",
+                add_cart: "Add to Cart",
+                cart_empty: "Your cart is empty.",
+                cart_title: "My Cart",
+                cart_total: "Total",
+                btn_checkout: "Checkout",
+                pay_title: "Secure Payment",
+                pay_sub: "Select Payment Method",
+                pay_card: "Credit Card", pay_wx: "WeChat Pay", pay_usdt: "USDT",
+                pay_confirm: "Pay Now"
+            }
+        };
 
         // --- 2. 渲染商品 ---
         function renderProducts() {
@@ -278,17 +349,18 @@
                         <div class="prod-info">
                             <div class="prod-name">${p.name}</div>
                             <div class="prod-price"><span class="price-now">¥${p.price}</span></div>
-                            <button class="add-btn" onclick="addToCart(${p.id})">加入购物车</button>
+                            <button class="add-btn" onclick="addToCart(${p.id})">${currentLang === 'zh' ? '加入购物车' : 'Add to Cart'}</button>
                         </div>
                     </div>
                 `;
             });
+            updateUIWithLang();
         }
 
-        function filterCategory(cat) {
+        function filterCategory(cat, el) {
             currentCategory = cat;
-            document.querySelectorAll('.sub-nav a').forEach(el => el.classList.remove('active'));
-            event.target.classList.add('active');
+            document.querySelectorAll('.sub-nav a').forEach(a => a.classList.remove('active'));
+            if(el) el.classList.add('active');
             renderProducts();
         }
 
@@ -300,7 +372,7 @@
             else cart.push({ ...p, qty: 1 });
             
             updateCartUI();
-            openCart(); // 点加购自动打开侧边栏
+            openCart();
         }
 
         function updateCartUI() {
@@ -330,47 +402,11 @@
                 `;
             });
 
-            if (cart.length === 0) list.innerHTML = '<p style="text-align:center;color:#999;margin-top:40px;">购物车是空的，快去选购吧！</p>';
+            if (cart.length === 0) list.innerHTML = `<p style="text-align:center;color:#999;margin-top:40px;">${currentLang === 'zh' ? '购物车是空的，快去选购吧！' : 'Your cart is empty.'}</p>`;
             
             badge.innerText = count;
             totalEl.innerText = `¥${total.toFixed(2)}`;
         }
 
         function changeQty(idx, change) {
-            if (cart[idx].qty + change <= 0) cart.splice(idx, 1);
-            else cart[idx].qty += change;
-            updateCartUI();
-        }
-
-        function openCart() { document.getElementById('cartSidebar').classList.add('open'); }
-        function closeCart() { document.getElementById('cartSidebar').classList.remove('open'); }
-
-        // --- 4. 支付结算逻辑 ---
-        function openPayment() {
-            if (cart.length === 0) { alert("您的购物车还是空的！"); return; }
-            closeCart();
-            document.getElementById('payOverlay').classList.add('active');
-        }
-
-        function closePayment() { document.getElementById('payOverlay').classList.remove('active'); }
-
-        function selectPay(el) {
-            document.querySelectorAll('.pay-option').forEach(p => p.classList.remove('active'));
-            el.classList.add('active');
-        }
-
-        function processPayment() {
-            const method = document.querySelector('.pay-option.active .pay-name').innerText;
-            alert(`✅ 支付成功！\n\n通过 ${method} 付款成功，金额：${document.getElementById('cartTotal').innerText}\n\n您的订单正在火速准备中！`);
-            
-            // 清空购物车
-            cart = [];
-            updateCartUI();
-            closePayment();
-        }
-
-        // 初始化
-        renderProducts();
-    </script>
-</body>
-</html>
+            if (cart[idx].qty + change <= 0
