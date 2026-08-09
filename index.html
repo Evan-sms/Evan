@@ -21,16 +21,16 @@
         .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
 
         /* --- 顶部导航 --- */
-        .top-nav { background: var(--primary-black); color: white; padding: 14px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .top-nav { background: var(--primary-black); color: white; padding: 14px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; gap: 10px; }
         .logo { font-size: 24px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
         .logo i { color: var(--accent-blue); }
-        .search-wrap { flex: 1; max-width: 500px; margin: 0 30px; display: flex; }
+        .search-wrap { flex: 1; max-width: 500px; margin: 0 30px; display: flex; min-width: 200px; }
         .search-wrap input { flex: 1; padding: 10px 16px; border: none; border-radius: 4px 0 0 4px; outline: none; font-size: 14px; }
         .search-wrap button { padding: 0 24px; background: var(--accent-blue); color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; font-weight: 600; }
-        .nav-links { display: flex; gap: 25px; font-size: 14px; font-weight: 500; align-items: center; }
+        .nav-links { display: flex; gap: 25px; font-size: 14px; font-weight: 500; align-items: center; flex-wrap: wrap; }
         .nav-links a:hover { color: var(--accent-blue); cursor: pointer; }
         
-        /* --- 语言切换按钮 --- */
+        /* --- 语言切换 --- */
         .lang-switch { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 13px; transition: 0.3s; font-weight: 600; }
         .lang-switch:hover { background: rgba(255,255,255,0.2); }
         
@@ -127,8 +127,9 @@
             .product-grid { grid-template-columns: repeat(3, 1fr); }
         }
         @media (max-width: 768px) {
-            .top-nav { flex-direction: column; gap: 10px; padding: 10px 20px; }
-            .search-wrap { width: 100%; margin: 5px 0; max-width: 100%; }
+            .top-nav { flex-direction: column; align-items: stretch; padding: 10px 20px; }
+            .search-wrap { margin: 10px 0; max-width: 100%; min-width: unset; }
+            .nav-links { justify-content: center; width: 100%; }
             .hero-banner { flex-direction: column; height: auto; }
             .hero-right { height: 200px; }
             .product-grid { grid-template-columns: 1fr 1fr; }
@@ -251,7 +252,7 @@
 
     <!-- JS业务逻辑 -->
     <script>
-        // --- 1. 商品数据库 (全是衣服鞋包，且使用100%稳定的图床) ---
+        // --- 1. 商品数据库 (全是衣服鞋包，使用100%稳定的图床，必出图) ---
         const products = [
             { id: 1, name: "亚麻混纺衬衫", cat: "男装", price: 399, img: "https://picsum.photos/seed/cloth1/400/400", tag: "新品" },
             { id: 2, name: "真丝吊带裙", cat: "女装", price: 659, img: "https://picsum.photos/seed/cloth2/400/400", tag: "热卖" },
@@ -354,7 +355,6 @@
                     </div>
                 `;
             });
-            updateUIWithLang();
         }
 
         function filterCategory(cat, el) {
@@ -370,7 +370,6 @@
             const exist = cart.find(item => item.id === id);
             if (exist) exist.qty += 1;
             else cart.push({ ...p, qty: 1 });
-            
             updateCartUI();
             openCart();
         }
@@ -402,11 +401,130 @@
                 `;
             });
 
-            if (cart.length === 0) list.innerHTML = `<p style="text-align:center;color:#999;margin-top:40px;">${currentLang === 'zh' ? '购物车是空的，快去选购吧！' : 'Your cart is empty.'}</p>`;
+            if (cart.length === 0) {
+                const emptyText = currentLang === 'zh' ? '购物车是空的，快去选购吧！' : 'Your cart is empty.';
+                list.innerHTML = `<p style="text-align:center;color:#999;margin-top:40px;">${emptyText}</p>`;
+            }
             
             badge.innerText = count;
             totalEl.innerText = `¥${total.toFixed(2)}`;
         }
 
         function changeQty(idx, change) {
-            if (cart[idx].qty + change <= 0
+            if (cart[idx].qty + change <= 0) cart.splice(idx, 1);
+            else cart[idx].qty += change;
+            updateCartUI();
+        }
+
+        function openCart() { document.getElementById('cartSidebar').classList.add('open'); }
+        function closeCart() { document.getElementById('cartSidebar').classList.remove('open'); }
+
+        // --- 4. 支付结算 ---
+        function openPayment() {
+            if (cart.length === 0) {
+                alert(currentLang === 'zh' ? "您的购物车还是空的！" : "Your cart is empty!");
+                return; 
+            }
+            closeCart();
+            document.getElementById('payOverlay').classList.add('active');
+        }
+
+        function closePayment() { document.getElementById('payOverlay').classList.remove('active'); }
+
+        function selectPay(el) {
+            document.querySelectorAll('.pay-option').forEach(p => p.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function processPayment() {
+            const method = document.querySelector('.pay-option.active .pay-name').innerText;
+            const totalAmount = document.getElementById('cartTotal').innerText;
+            const msg = currentLang === 'zh' ? `✅ 支付成功！\n\n通过 ${method} 付款成功，金额：${totalAmount}\n\n您的订单正在火速准备中！` : `✅ Payment Successful!\n\nPaid via ${method}, Amount: ${totalAmount}\n\nYour order is being processed!`;
+            
+            alert(msg);
+            
+            // 清空购物车
+            cart = [];
+            updateCartUI();
+            closePayment();
+        }
+
+        // --- 5. 语言切换 ---
+        function toggleLanguage() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            document.getElementById('langLabel').innerText = currentLang === 'zh' ? '🇨🇳 中文' : '🇬🇧 EN';
+            applyLanguageUI();
+            renderProducts(); // 重新渲染商品，更新“加入购物车”按钮的文字
+            updateCartUI();   // 更新购物车空的提示文字
+        }
+
+        function applyLanguageUI() {
+            const t = langData[currentLang];
+            
+            // 顶部导航
+            const navLinks = document.querySelectorAll('.top-nav .nav-links a');
+            if(navLinks[0]) navLinks[0].innerText = t.nav_home;
+            if(navLinks[1]) navLinks[1].innerText = t.nav_new;
+            if(navLinks[2]) navLinks[2].innerText = t.nav_sale;
+            document.querySelector('.cart-btn-wrap').childNodes[2].textContent = t.cart_btn;
+
+            // 二级导航
+            const subLinks = document.querySelectorAll('.sub-nav a');
+            if(subLinks[0]) subLinks[0].innerText = t.sub_all;
+            if(subLinks[1]) subLinks[1].innerText = t.sub_men;
+            if(subLinks[2]) subLinks[2].innerText = t.sub_women;
+            if(subLinks[3]) subLinks[3].innerText = t.sub_shoes;
+            if(subLinks[4]) subLinks[4].innerText = t.sub_acc;
+
+            // Banner
+            document.querySelector('.hero-btn').innerText = t.hero_btn;
+
+            // 服务
+            const services = document.querySelectorAll('.service-card');
+            const sData = [t.service_1_t, t.service_2_t, t.service_3_t, t.service_4_t];
+            const sDesc = [t.service_1_d, t.service_2_d, t.service_3_d, t.service_4_d];
+            services.forEach((el, i) => {
+                el.querySelector('h4').innerText = sData[i];
+                el.querySelector('p').innerText = sDesc[i];
+            });
+
+            // 商品标题
+            document.querySelector('.section-title').innerText = t.list_title;
+
+            // 底部
+            const footerCols = document.querySelectorAll('.f-col h4');
+            footerCols[0].innerText = t.f_g_t;
+            footerCols[1].innerText = t.f_s_t;
+            footerCols[2].innerText = t.f_b_t;
+            footerCols[3].innerText = t.f_a_t;
+
+            const footerLis = document.querySelectorAll('.f-col ul li');
+            const fTexts = [t.f_g_1, t.f_g_2, t.f_g_3, t.f_g_4, t.f_s_1, t.f_s_2, t.f_s_3, t.f_s_4, t.f_b_1, t.f_b_2, t.f_b_3, t.f_b_4, t.f_a_1, t.f_a_2, t.f_a_3, t.f_a_4];
+            footerLis.forEach((el, i) => { if(fTexts[i]) el.innerText = fTexts[i]; });
+
+            // 底部客服
+            const contactText = document.querySelector('.footer-bottom p');
+            contactText.childNodes[0].textContent = t.f_contact;
+
+            // 购物车
+            document.querySelector('.cart-header h2').innerText = t.cart_title;
+            document.querySelector('.cart-total span:first-child').innerText = t.cart_total;
+            document.querySelector('.checkout-btn').innerText = t.btn_checkout;
+            
+            // 支付弹窗
+            document.querySelector('.pay-modal h3').innerText = t.pay_title;
+            document.querySelector('.pay-modal p').innerText = t.pay_sub;
+            
+            const payNames = document.querySelectorAll('.pay-option .pay-name');
+            payNames[0].innerText = t.pay_card;
+            payNames[1].innerText = t.pay_wx;
+            payNames[2].innerText = t.pay_usdt;
+            document.querySelector('.confirm-pay-btn').innerText = t.pay_confirm;
+        }
+
+        // 初始化页面
+        renderProducts();
+        applyLanguageUI();
+    </script>
+</body>
+</html>
