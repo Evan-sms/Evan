@@ -210,7 +210,6 @@
             .nav-links { justify-content:center; width:100%; }
             .hero-banner { flex-direction:column; height:auto; }
             .hero-right { height:220px; }
-            /* 手机端：隐藏侧边筛选，改为顶部按钮 */
             .main-shop-wrap { flex-direction:column; }
             .filter-sidebar { display:none; position:fixed; z-index:1500; left:0; top:0; height:100vh; width:280px; border-radius:0; overflow-y:auto; }
             .filter-sidebar.mobile-open { display:block; }
@@ -384,35 +383,32 @@
 
     <!-- JS业务逻辑 -->
     <script>
-        // --- 商品数据库：全部更换为对应实物实拍图片
+        // --- 商品数据库：全部更换为本地文件夹 images/ 加载 (绝对不会裂图) ---
         const products = [
-            { id: 1, name_zh: "亚麻混纺衬衫", name_en: "Linen Blend Shirt", cat: "男装", price: 399, img: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=500&h=500&fit=crop", tag: "新品" },
-            { id: 3, name_zh: "棉麻休闲西装", name_en: "Linen Casual Suit", cat: "男装", price: 529, img: "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=500&h=500&fit=crop", tag: "爆款" },
-            { id: 4, name_zh: "复古印花T恤", name_en: "Vintage Print Tee", cat: "男装", price: 259, img: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&h=500&fit=crop", tag: "折扣" },
-            { id: 11, name_zh: "运动束脚裤", name_en: "Jogger Sweatpants", cat: "男装", price: 279, img: "https://images.unsplash.com/photo-1552902875-9ac1f9fe0c07?w=500&h=500&fit=crop", tag: "休闲" },
-            { id: 13, name_zh: "经典牛仔裤", name_en: "Classic Jeans", cat: "男装", price: 359, img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500&h=500&fit=crop", tag: "畅销" },
-            { id: 15, name_zh: "字母印花卫衣", name_en: "Graphic Hoodie", cat: "男装", price: 419, img: "https://images.unsplash.com/photo-1578768079052-aa76e52ff62e?w=500&h=500&fit=crop", tag: "新品" },
-            { id: 19, name_zh: "轻薄防晒夹克", name_en: "Lightweight Jacket", cat: "男装", price: 499, img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&h=500&fit=crop", tag: "夏季" },
-            { id: 24, name_zh: "休闲哈伦裤", name_en: "Relaxed Harem Pants", cat: "男装", price: 339, img: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500&h=500&fit=crop", tag: "日常" },
-
-            { id: 2, name_zh: "真丝吊带裙", name_en: "Silk Slip Dress", cat: "女装", price: 659, img: "https://images.unsplash.com/photo-1595777457587-9d40c5019530?w=500&h=500&fit=crop", tag: "热卖" },
-            { id: 7, name_zh: "高腰阔腿裤", name_en: "High‑Waist Wide Pants", cat: "女装", price: 459, img: "https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=500&h=500&fit=crop", tag: "热卖" },
-            { id: 9, name_zh: "针织开衫", name_en: "Knit Cardigan", cat: "女装", price: 489, img: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=500&h=500&fit=crop", tag: "新款" },
-            { id: 14, name_zh: "法式方领衬衫", name_en: "French Square Neck Top", cat: "女装", price: 299, img: "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=500&h=500&fit=crop", tag: "优雅" },
-            { id: 16, name_zh: "百褶半身裙", name_en: "Pleated Midi Skirt", cat: "女装", price: 389, img: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=500&h=500&fit=crop", tag: "热卖" },
-            { id: 20, name_zh: "瑜伽运动裤", name_en: "Yoga Leggings", cat: "女装", price: 259, img: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500&h=500&fit=crop", tag: "舒适" },
-            { id: 23, name_zh: "羊毛混纺大衣", name_en: "Wool Blend Coat", cat: "女装", price: 1299, img: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=500&h=500&fit=crop", tag: "上新" },
-
-            { id: 8, name_zh: "帆布板鞋", name_en: "Canvas Sneakers", cat: "鞋履", price: 329, img: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&h=500&fit=crop", tag: "经典" },
-            { id: 17, name_zh: "工装复古马丁靴", name_en: "Retro Work Boots", cat: "鞋履", price: 589, img: "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=500&h=500&fit=crop", tag: "帅气" },
-            { id: 21, name_zh: "厚底老爹鞋", name_en: "Chunky Dad Shoes", cat: "鞋履", price: 459, img: "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=500&h=500&fit=crop", tag: "流行" },
-
-            { id: 5, name_zh: "草编托特包", name_en: "Woven Tote Bag", cat: "配饰", price: 189, img: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=500&h=500&fit=crop", tag: "人气" },
-            { id: 6, name_zh: "珍珠金属项链", name_en: "Pearl Metal Necklace", cat: "配饰", price: 149, img: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500&h=500&fit=crop", tag: "精选" },
-            { id: 10, name_zh: "皮质双肩包", name_en: "Leather Backpack", cat: "配饰", price: 699, img: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=500&h=500&fit=crop", tag: "潮流" },
-            { id: 12, name_zh: "丝绸发带", name_en: "Silk Headband", cat: "配饰", price: 89, img: "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=500&h=500&fit=crop", tag: "上新" },
-            { id: 18, name_zh: "棒球帽", name_en: "Baseball Cap", cat: "配饰", price: 99, img: "https://images.unsplash.com/photo-1521369909029-2afed882baee?w=500&h=500&fit=crop", tag: "百搭" },
-            { id: 22, name_zh: "斜挎胸包", name_en: "Crossbody Chest Bag", cat: "配饰", price: 229, img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&h=500&fit=crop", tag: "便捷" }
+            { id: 1, name_zh: "亚麻混纺衬衫", name_en: "Linen Blend Shirt", cat: "男装", price: 399, img: "images/1.jpg", tag: "新品" },
+            { id: 2, name_zh: "真丝吊带裙", name_en: "Silk Slip Dress", cat: "女装", price: 659, img: "images/2.jpg", tag: "热卖" },
+            { id: 3, name_zh: "棉麻休闲西装", name_en: "Linen Casual Suit", cat: "男装", price: 529, img: "images/3.jpg", tag: "爆款" },
+            { id: 4, name_zh: "复古印花T恤", name_en: "Vintage Print Tee", cat: "男装", price: 259, img: "images/4.jpg", tag: "折扣" },
+            { id: 5, name_zh: "草编托特包", name_en: "Woven Tote Bag", cat: "配饰", price: 189, img: "images/5.jpg", tag: "人气" },
+            { id: 6, name_zh: "珍珠金属项链", name_en: "Pearl Metal Necklace", cat: "配饰", price: 149, img: "images/6.jpg", tag: "精选" },
+            { id: 7, name_zh: "高腰阔腿裤", name_en: "High-Waist Wide Pants", cat: "女装", price: 459, img: "images/7.jpg", tag: "热卖" },
+            { id: 8, name_zh: "帆布板鞋", name_en: "Canvas Sneakers", cat: "鞋履", price: 329, img: "images/8.jpg", tag: "经典" },
+            { id: 9, name_zh: "针织开衫", name_en: "Knit Cardigan", cat: "女装", price: 489, img: "images/9.jpg", tag: "新款" },
+            { id: 10, name_zh: "皮质双肩包", name_en: "Leather Backpack", cat: "配饰", price: 699, img: "images/10.jpg", tag: "潮流" },
+            { id: 11, name_zh: "运动束脚裤", name_en: "Jogger Sweatpants", cat: "男装", price: 279, img: "images/11.jpg", tag: "休闲" },
+            { id: 12, name_zh: "丝绸发带", name_en: "Silk Headband", cat: "配饰", price: 89, img: "images/12.jpg", tag: "上新" },
+            { id: 13, name_zh: "经典牛仔裤", name_en: "Classic Jeans", cat: "男装", price: 359, img: "images/13.jpg", tag: "畅销" },
+            { id: 14, name_zh: "法式方领衬衫", name_en: "French Square Neck Top", cat: "女装", price: 299, img: "images/14.jpg", tag: "优雅" },
+            { id: 15, name_zh: "字母印花卫衣", name_en: "Graphic Hoodie", cat: "男装", price: 419, img: "images/15.jpg", tag: "新品" },
+            { id: 16, name_zh: "百褶半身裙", name_en: "Pleated Midi Skirt", cat: "女装", price: 389, img: "images/16.jpg", tag: "热卖" },
+            { id: 17, name_zh: "工装复古马丁靴", name_en: "Retro Work Boots", cat: "鞋履", price: 589, img: "images/17.jpg", tag: "帅气" },
+            { id: 18, name_zh: "棒球帽", name_en: "Baseball Cap", cat: "配饰", price: 99, img: "images/18.jpg", tag: "百搭" },
+            { id: 19, name_zh: "轻薄防晒夹克", name_en: "Lightweight Jacket", cat: "男装", price: 499, img: "images/19.jpg", tag: "夏季" },
+            { id: 20, name_zh: "瑜伽运动裤", name_en: "Yoga Leggings", cat: "女装", price: 259, img: "images/20.jpg", tag: "舒适" },
+            { id: 21, name_zh: "厚底老爹鞋", name_en: "Chunky Dad Shoes", cat: "鞋履", price: 459, img: "images/21.jpg", tag: "流行" },
+            { id: 22, name_zh: "斜挎胸包", name_en: "Crossbody Chest Bag", cat: "配饰", price: 229, img: "images/22.jpg", tag: "便捷" },
+            { id: 23, name_zh: "羊毛混纺大衣", name_en: "Wool Blend Coat", cat: "女装", price: 1299, img: "images/23.jpg", tag: "上新" },
+            { id: 24, name_zh: "休闲哈伦裤", name_en: "Relaxed Harem Pants", cat: "男装", price: 339, img: "images/24.jpg", tag: "日常" }
         ];
 
         let cart = [];
@@ -445,19 +441,19 @@
             en: {
                 nav_home: "Home", nav_new: "New Arrivals", nav_sale: "Sale", nav_cart: "Cart",
                 sub_all: "All", sub_men: "Men", sub_women: "Women", sub_shoes: "Shoes", sub_acc: "Accessories",
-                banner_title: "DUNPAI<br>New Collection", banner_desc: "Selected linen, silk, and eco‑friendly fabrics. Men's and Women's apparel, bags, and accessories.", banner_btn: "Shop Now",
+                banner_title: "DUNPAI<br>New Collection", banner_desc: "Selected linen, silk, and eco-friendly fabrics. Men's and Women's apparel, bags, and accessories.", banner_btn: "Shop Now",
                 srv1_t: "Authentic", srv1_d: "Official Brand Direct", srv2_t: "Fast Shipping", srv2_d: "Shipped within 24h", srv3_t: "Warranty", srv3_d: "7 Days Returns", srv4_t: "Online Support", srv4_d: "24/7 Customer Care",
                 list_title: "This Week's Hot List",
                 f_g_t: "Shopping Guide", f_g_1: "Order Process", f_g_2: "Payment", f_g_3: "Shipping", f_g_4: "Returns",
                 f_s_t: "Support", f_s_1: "Authentic Guarantee", f_s_2: "Size Exchange", f_s_3: "Invoice", f_s_4: "Live Chat",
-                f_b_t: "Partners", f_b_1: "Brand Sign up", f_b_2: "Bulk Orders", f_b_3: "Co‑branding", f_b_4: "Offline Stores",
+                f_b_t: "Partners", f_b_1: "Brand Sign up", f_b_2: "Bulk Orders", f_b_3: "Co-branding", f_b_4: "Offline Stores",
                 f_a_t: "About Us", f_a_1: "Brand Story", f_a_2: "Design", f_a_3: "Media", f_a_4: "Privacy",
                 f_contact: "24/7 Support Telegram: ", f_copy: "© 2026 DUNPAI Wardrobe. All rights reserved.",
                 add_cart: "Add to Cart", cart_empty: "Your cart is empty.", cart_title: "My Cart", cart_total_label: "Total", btn_checkout: "Checkout",
                 pay_title: "Secure Payment", pay_sub: "Select Payment Method", pay_card: "Credit Card", pay_wx: "WeChat Pay", pay_usdt: "USDT", pay_confirm: "Pay Now",
                 currency: "$",
                 filter_cat_title:"Category",filter_sort_title:"Sort",filter_price_title:"Price Range",priceBtn:"Apply",resetFilterBtn:"Reset Filter",
-                sort_default:"Default",sort_priceAsc:"Price Low‑High",sort_priceDesc:"Price High‑Low",sort_hot:"Best Rating"
+                sort_default:"Default",sort_priceAsc:"Price Low-High",sort_priceDesc:"Price High-Low",sort_hot:"Best Rating"
             }
         };
 
@@ -590,3 +586,146 @@
             const totalEl = document.getElementById('cartTotal');
             const t = langData[currentLang];
             
+            let total = 0, count = 0;
+            list.innerHTML = '';
+            
+            cart.forEach((item, idx) => {
+                const pName = currentLang === 'zh' ? item.name_zh : item.name_en;
+                const pPrice = currentLang === 'zh' ? item.price : (item.price / 7.2).toFixed(2);
+                
+                total += item.price * item.qty;
+                count += item.qty;
+                list.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.img}" alt="${pName}">
+                        <div class="cart-item-info">
+                            <h4>${pName}</h4>
+                            <p>${t.currency}${pPrice}</p>
+                        </div>
+                        <div class="item-controls">
+                            <button onclick="changeQty(${idx}, -1)">-</button>
+                            <span>${item.qty}</span>
+                            <button onclick="changeQty(${idx}, 1)">+</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            if (cart.length === 0) {
+                list.innerHTML = `<p style="text-align:center;color:#999;margin-top:40px;">${t.cart_empty}</p>`;
+            }
+            
+            const displayTotal = currentLang === 'zh' ? total : (total / 7.2).toFixed(2);
+            badge.innerText = count;
+            totalEl.innerText = `${t.currency}${displayTotal}`;
+        }
+
+        function changeQty(idx, change) {
+            if (cart[idx].qty + change <= 0) cart.splice(idx, 1);
+            else cart[idx].qty += change;
+            updateCartUI();
+        }
+
+        function openCart() { document.getElementById('cartSidebar').classList.add('open'); }
+        function closeCart() { document.getElementById('cartSidebar').classList.remove('open'); }
+
+        // --- 4. 支付结算 ---
+        function openPayment() {
+            if (cart.length === 0) {
+                alert(currentLang === 'zh' ? "您的购物车还是空的！" : "Your cart is empty!");
+                return; 
+            }
+            closeCart();
+            document.getElementById('payOverlay').classList.add('active');
+        }
+
+        function closePayment() { document.getElementById('payOverlay').classList.remove('active'); }
+
+        function selectPay(el) {
+            document.querySelectorAll('.pay-option').forEach(p => p.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function processPayment() {
+            const method = document.querySelector('.pay-option.active .pay-name').innerText;
+            const totalAmount = document.getElementById('cartTotal').innerText;
+            const msg = currentLang === 'zh' ? `✅ 支付成功！\n\n通过 ${method} 付款成功，金额：${totalAmount}\n\n您的订单正在火速准备中！` : `✅ Payment Successful!\n\nPaid via ${method}, Amount: ${totalAmount}\n\nYour order is being processed!`;
+            
+            alert(msg);
+            
+            cart = [];
+            updateCartUI();
+            closePayment();
+        }
+
+        // --- 5. 语言切换 ---
+        function toggleLanguage() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            document.getElementById('langLabel').innerText = currentLang === 'zh' ? '🇨🇳 中文' : '🇬🇧 EN';
+            applyLanguageUI();
+            renderProducts();   
+            updateCartUI();     
+        }
+
+        function applyLanguageUI() {
+            const t = langData[currentLang];
+            
+            document.getElementById('nav_home').innerText = t.nav_home;
+            document.getElementById('nav_new').innerText = t.nav_new;
+            document.getElementById('nav_sale').innerText = t.nav_sale;
+            document.getElementById('nav_cart').innerText = t.nav_cart;
+
+            document.getElementById('sub_all').innerText = t.sub_all;
+            document.getElementById('sub_men').innerText = t.sub_men;
+            document.getElementById('sub_women').innerText = t.sub_women;
+            document.getElementById('sub_shoes').innerText = t.sub_shoes;
+            document.getElementById('sub_acc').innerText = t.sub_acc;
+
+            document.getElementById('banner_title').innerHTML = t.banner_title;
+            document.getElementById('banner_desc').innerText = t.banner_desc;
+            document.getElementById('banner_btn').innerText = t.banner_btn;
+
+            document.getElementById('srv1_t').innerText = t.srv1_t; document.getElementById('srv1_d').innerText = t.srv1_d;
+            document.getElementById('srv2_t').innerText = t.srv2_t; document.getElementById('srv2_d').innerText = t.srv2_d;
+            document.getElementById('srv3_t').innerText = t.srv3_t; document.getElementById('srv3_d').innerText = t.srv3_d;
+            document.getElementById('srv4_t').innerText = t.srv4_t; document.getElementById('srv4_d').innerText = t.srv4_d;
+
+            document.getElementById('list_title').innerText = t.list_title;
+
+            document.getElementById('f_g_t').innerText = t.f_g_t; document.getElementById('f_g_1').innerText = t.f_g_1;
+            document.getElementById('f_g_2').innerText = t.f_g_2; document.getElementById('f_g_3').innerText = t.f_g_3;
+            document.getElementById('f_g_4').innerText = t.f_g_4;
+            
+            document.getElementById('f_s_t').innerText = t.f_s_t; document.getElementById('f_s_1').innerText = t.f_s_1;
+            document.getElementById('f_s_2').innerText = t.f_s_2; document.getElementById('f_s_3').innerText = t.f_s_3;
+            document.getElementById('f_s_4').innerText = t.f_s_4;
+            
+            document.getElementById('f_b_t').innerText = t.f_b_t; document.getElementById('f_b_1').innerText = t.f_b_1;
+            document.getElementById('f_b_2').innerText = t.f_b_2; document.getElementById('f_b_3').innerText = t.f_b_3;
+            document.getElementById('f_b_4').innerText = t.f_b_4;
+            
+            document.getElementById('f_a_t').innerText = t.f_a_t; document.getElementById('f_a_1').innerText = t.f_a_1;
+            document.getElementById('f_a_2').innerText = t.f_a_2; document.getElementById('f_a_3').innerText = t.f_a_3;
+            document.getElementById('f_a_4').innerText = t.f_a_4;
+            
+            document.getElementById('f_contact').innerHTML = `${t.f_contact}<strong style="color: #4f46e5;">+1 412 774 3292</strong>`;
+            document.getElementById('f_copy').innerText = t.f_copy;
+
+            document.getElementById('cart_title').innerText = t.cart_title;
+            document.getElementById('cart_total_label').innerText = t.cart_total_label;
+            document.getElementById('btn_checkout').innerText = t.btn_checkout;
+            
+            document.getElementById('pay_title').innerText = t.pay_title;
+            document.getElementById('pay_sub').innerText = t.pay_sub;
+            document.getElementById('pay_card').innerText = t.pay_card;
+            document.getElementById('pay_wx').innerText = t.pay_wx;
+            document.getElementById('pay_usdt').innerText = t.pay_usdt;
+            document.getElementById('pay_confirm').innerText = t.pay_confirm;
+        }
+
+        // 初始化页面
+        renderProducts();
+        applyLanguageUI();
+    </script>
+</body>
+</html>
